@@ -1,33 +1,53 @@
-﻿@page "/counter"
+﻿@page "/items"
+@using KriosManufacturing.Core.Services
+@using KriosManufacturing.Core.Models
+@using System.Diagnostics
 @inject ItemService itemService
-@inject LocationService locationService
+@inject ILogger<Counter> logger
 @rendermode InteractiveServer
 
-<PageTitle>Counter</PageTitle>
-
-<h1>Counter</h1>
+<PageTitle>Items</PageTitle>
 
 <p role="status">Current count: @currentCount</p>
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
+<h1>Items</h1>
+<table class="table">
+    <tr>
+        <th>Id</th>
+        <th>Sku</th>
+        <th>Name</th>
+        <th>Description</th>
+    </tr>
+    @foreach (var item in items)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.Sku</td>
+            <td>@item.Name</td>
+            <td>@item.Description</td>
+        </tr>
+    }
+</table>
+
 @code {
     private int currentCount = 0;
+    private IEnumerable<Item> items = new List<Item>();
 
     protected override async Task OnInitializedAsync()
     {
-        var items = await itemService.GetAllAsync();
-        if (!items.Any()) {
-            for (int i = 0; i < 10; i++) {
-                await itemService.CreateAsync(new Core.Models.Item() {Name = $"{i}", Description = $"{i}"});
+        var sw = new Stopwatch();
+        sw.Start();
+        this.items = await itemService.GetAllAsync();
+        if (!items.Any())
+        {
+            for(int i = 1; i < 10; i++)
+            {
+                await itemService.CreateAsync(new Item() {Sku=$"Sku{i}",Name=$"Name{i}", Description=$"Description{i}"});
             }
         }
-        var locations = await locationService.GetAllAsync();
-        if (!locations.Any()) {
-            for (int i = 0; i < 10; i++) {
-                await locationService.CreateAsync(new Core.Models.Location() {Unit= $"{i}", Cell= $"{i}"});
-            }
-        }
+        logger.LogInformation($"OnInit took {sw.ElapsedMilliseconds}ms");
     }
 
     private void IncrementCount()
