@@ -5,34 +5,48 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace KriosManufacturing.Core.Services;
-public class ItemService(ILogger<ItemService> logger, AppDbContext context)
+public class ItemService(ILogger<ItemService> logger, AppDbContext _dbContext)
 {
     public async Task<IEnumerable<Item>> GetAllAsync()
     {
-        return await context.Items.ToListAsync();
+        return await _dbContext.Items.ToListAsync();
     }
 
-    public async Task<Item?> GetById(long id)
+    public async Task<Item?> GetByIdAsync(long id)
     {
-        return await context.Items.FindAsync(id);
+        return await _dbContext.Items.FindAsync(id);
     }
 
-    public async Task CreateAsync(Item item)
+    public async Task<Item?> GetBySkuAsync(string sku)
     {
-        context.Items.Add(item);
-        await context.SaveChangesAsync();
+        return await _dbContext.Items.Where(x => x.Sku == sku).SingleOrDefaultAsync();
+    }
+
+    public async Task<Item?> CreateAsync(Item item)
+    {
+        _dbContext.Items.Add(item);
+        var result = await _dbContext.SaveChangesAsync();
+        return result > 0 ? item : default;
     }
 
     public async Task<bool> DeleteByIdAsync(long id)
     {
-        var result = await context.Items.Where(x => x.Id == id).ExecuteDeleteAsync();
+        var result = await _dbContext.Items.Where(x => x.Id == id).ExecuteDeleteAsync();
         return result > 0;
     }
 
     public async Task<Item?> UpdateAsync(Item item)
     {
-        context.Items.Update(item);
-        var result = await context.SaveChangesAsync();
+        var currentItem = await _dbContext.Items.AsNoTracking().FirstAsync(x => x.Id == item.Id)
+            ?? throw new ArgumentException("Item does not exist.");
+
+        if (item.Sku != currentItem.Sku)
+        {
+            throw new ArgumentException("Cannot change sku of an item.");
+        }
+
+        _dbContext.Items.Update(item);
+        var result = await _dbContext.SaveChangesAsync();
         return result > 0 ? item : default;
     }
 }

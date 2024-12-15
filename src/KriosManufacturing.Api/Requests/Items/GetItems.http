@@ -1,0 +1,3 @@
+
+GET {{host}}{{api}}/items
+Accept: application/json

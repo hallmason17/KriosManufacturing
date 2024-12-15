@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace KriosManufacturing.Core.Models;
 
 public class Lot
@@ -12,11 +14,14 @@ public class Lot
         get; set;
     }
 
+    [Required]
+    [StringLength(100)]
     public required string LotNumber
     {
         get; set;
     }
 
+    [Required]
     public DateOnly ExpirationDate
     {
         get; set;

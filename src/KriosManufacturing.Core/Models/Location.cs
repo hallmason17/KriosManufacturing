@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace KriosManufacturing.Core.Models;
 
 public class Location
@@ -7,11 +9,15 @@ public class Location
         get; set;
     }
 
+    [Required]
+    [StringLength(16)]
     public required string Unit
     {
         get; set;
     }
 
+    [Required]
+    [StringLength(16)]
     public required string Cell
     {
         get; set;

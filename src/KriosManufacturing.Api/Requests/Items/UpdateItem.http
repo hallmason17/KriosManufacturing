@@ -1,0 +1,10 @@
+
+PUT {{host}}{{api}}/items/2
+Content-Type: application/json
+
+{
+    "Id" : 2,
+    "Sku" : "UpdatedSku2",
+    "Name" : "Name2",
+    "Description" : "Description2"
+}

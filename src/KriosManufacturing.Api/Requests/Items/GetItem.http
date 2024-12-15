@@ -1,0 +1,2 @@
+GET {{host}}{{api}}/items/2
+Accept: application/json

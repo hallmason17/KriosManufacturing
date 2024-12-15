@@ -1,0 +1,55 @@
+@page "/items/{ItemId:int}/edit"
+@using KriosManufacturing.Core.Models
+@inject HttpClient Http
+
+<PageTitle>Item</PageTitle>
+
+<h1>Item @ItemId</h1>
+
+@if (item == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <EditForm Model="item" OnValidSubmit="Submit">
+    <AntiforgeryToken />
+    <ValidationSummary />
+    <DataAnnotationsValidator />
+    <div>
+        <label>
+            Sku:
+            <p>@item.Sku</p>
+        </label>
+        <label>
+            Name:
+            <InputText @bind-Value="@item.Name"></InputText>
+        </label>
+        <label>
+            Description:
+            <InputText @bind-Value="@item.Description"></InputText>
+        </label>
+    </div>
+    <div>
+        <button type="submit">Submit</button>
+    </div>
+</EditForm>
+}
+@code {
+    [Parameter]
+    public int ItemId { get; set; }
+    private Item? item;
+
+    private async Task Submit()
+    {
+        var result = await Http.PutAsJsonAsync($"/api/v1/items/{ItemId}", item!);
+        if (result.IsSuccessStatusCode) {
+
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        item = await Http.GetFromJsonAsync<Item>($"/api/v1/items/{ItemId}");
+    }
+}

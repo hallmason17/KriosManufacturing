@@ -1,0 +1,45 @@
+﻿@page "/items"
+@using KriosManufacturing.Core.Models
+@inject HttpClient Http
+
+<PageTitle>Items</PageTitle>
+
+<h1>Items</h1>
+
+@if (!items.Any())
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th aria-label="Temperature in Celsius">Temp. (C)</th>
+                <th aria-label="Temperature in Farenheit">Temp. (F)</th>
+                <th>Summary</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in items.OrderBy(it => it.Id))
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Sku</td>
+                    <td>@item.Name</td>
+                    <td>@item.Description</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private IEnumerable<Item> items = new List<Item>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        items = await Http.GetFromJsonAsync<List<Item>>("/api/v1/items");
+    }
+}

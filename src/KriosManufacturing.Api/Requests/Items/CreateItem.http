@@ -1,0 +1,13 @@
+# @name create
+POST {{host}}{{api}}/items
+Content-Type: application/json
+
+{
+    "Sku":"Test4",
+    "Name":"Test",
+    "Description":"Test"
+}
+
+###
+
+GET {{create.response.headers.Location}}
