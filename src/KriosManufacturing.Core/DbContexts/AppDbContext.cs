@@ -1,16 +1,35 @@
 using KriosManufacturing.Core.Models;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace KriosManufacturing.Core.DbContexts;
 
 public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
-    public DbSet<Item> Items { get; set; }
-    public DbSet<Location> Locations { get; set; }
-    public DbSet<InventoryRecord> InventoryRecords { get; set; }
-    public DbSet<Lot> Lots { get; set; }
-    public DbSet<Order> Orders { get; set; }
-    public DbSet<OrderDetail> OrderDetails { get; set; }
+    public DbSet<Item> Items
+    {
+        get; set;
+    }
+    public DbSet<Location> Locations
+    {
+        get; set;
+    }
+    public DbSet<InventoryRecord> InventoryRecords
+    {
+        get; set;
+    }
+    public DbSet<Lot> Lots
+    {
+        get; set;
+    }
+    public DbSet<Order> Orders
+    {
+        get; set;
+    }
+    public DbSet<OrderDetail> OrderDetails
+    {
+        get; set;
+    }
 
     override protected void OnModelCreating(ModelBuilder modelBuilder)
     {

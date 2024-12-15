@@ -1,6 +1,7 @@
 using KriosManufacturing.Core.DbContexts;
 using KriosManufacturing.Core.Services;
 using KriosManufacturing.Wms.Components;
+
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

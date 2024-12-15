@@ -1,15 +1,24 @@
-using System.ComponentModel.DataAnnotations;
-using Microsoft.EntityFrameworkCore;
-
 namespace KriosManufacturing.Core.Models;
 
 public class Location
 {
-    public long Id { get; set; }
+    public long Id
+    {
+        get; set;
+    }
 
-    public required string Unit { get; set; }
+    public required string Unit
+    {
+        get; set;
+    }
 
-    public required string Cell { get; set; }
+    public required string Cell
+    {
+        get; set;
+    }
 
-    public ICollection<InventoryRecord>? InventoryRecords { get; set; }
+    public ICollection<InventoryRecord>? InventoryRecords
+    {
+        get; set;
+    }
 }
