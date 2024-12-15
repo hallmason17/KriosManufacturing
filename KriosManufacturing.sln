@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KriosManufacturing.App", "KriosManufacturing.App\KriosManufacturing.App.csproj", "{EEDFFCCF-9C28-4F40-BF82-59DAA6F4BAEC}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{CC364B59-827E-4766-9225-302E6D10DD5E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KriosManufacturing.Core", "KriosManufacturing.Core\KriosManufacturing.Core.csproj", "{2D30C9C0-18F5-499F-ADD6-92D41E2C11DA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KriosManufacturing.App", "src\KriosManufacturing.App\KriosManufacturing.App.csproj", "{EF678724-C8CB-4167-B9F7-8CBA930B9D6F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KriosManufacturing.Ims", "KriosManufacturing.Ims\KriosManufacturing.Ims.csproj", "{C9FFA73A-1DCD-4B21-BB66-C765B924F3E1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KriosManufacturing.Core", "src\KriosManufacturing.Core\KriosManufacturing.Core.csproj", "{CF10FE7C-8257-4C47-96D8-39122C0AF1D5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KriosManufacturing.Wms", "src\KriosManufacturing.Wms\KriosManufacturing.Wms.csproj", "{90DB1A29-34DA-468D-AD28-589D53E2C7E3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,17 +20,22 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{EEDFFCCF-9C28-4F40-BF82-59DAA6F4BAEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EEDFFCCF-9C28-4F40-BF82-59DAA6F4BAEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EEDFFCCF-9C28-4F40-BF82-59DAA6F4BAEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EEDFFCCF-9C28-4F40-BF82-59DAA6F4BAEC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2D30C9C0-18F5-499F-ADD6-92D41E2C11DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2D30C9C0-18F5-499F-ADD6-92D41E2C11DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2D30C9C0-18F5-499F-ADD6-92D41E2C11DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2D30C9C0-18F5-499F-ADD6-92D41E2C11DA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C9FFA73A-1DCD-4B21-BB66-C765B924F3E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C9FFA73A-1DCD-4B21-BB66-C765B924F3E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C9FFA73A-1DCD-4B21-BB66-C765B924F3E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C9FFA73A-1DCD-4B21-BB66-C765B924F3E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF678724-C8CB-4167-B9F7-8CBA930B9D6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF678724-C8CB-4167-B9F7-8CBA930B9D6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF678724-C8CB-4167-B9F7-8CBA930B9D6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF678724-C8CB-4167-B9F7-8CBA930B9D6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF10FE7C-8257-4C47-96D8-39122C0AF1D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF10FE7C-8257-4C47-96D8-39122C0AF1D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF10FE7C-8257-4C47-96D8-39122C0AF1D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF10FE7C-8257-4C47-96D8-39122C0AF1D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90DB1A29-34DA-468D-AD28-589D53E2C7E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90DB1A29-34DA-468D-AD28-589D53E2C7E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90DB1A29-34DA-468D-AD28-589D53E2C7E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90DB1A29-34DA-468D-AD28-589D53E2C7E3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EF678724-C8CB-4167-B9F7-8CBA930B9D6F} = {CC364B59-827E-4766-9225-302E6D10DD5E}
+		{CF10FE7C-8257-4C47-96D8-39122C0AF1D5} = {CC364B59-827E-4766-9225-302E6D10DD5E}
+		{90DB1A29-34DA-468D-AD28-589D53E2C7E3} = {CC364B59-827E-4766-9225-302E6D10DD5E}
 	EndGlobalSection
 EndGlobal
