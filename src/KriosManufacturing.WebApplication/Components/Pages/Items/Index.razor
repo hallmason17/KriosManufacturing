@@ -4,7 +4,13 @@
 
 <PageTitle>Items</PageTitle>
 
-<h1>Items</h1>
+<div class="d-flex justify-space-between">
+<h1 class="my-5">All Items</h1>
+<MudButton Class="my-5" Href="/items/new" Variant="Variant.Filled" Color="Color.Tertiary">
+    <MudIcon Size="Size.Small" Icon="@Icons.Material.Outlined.Add" />
+    Add an Item
+</MudButton>
+</div>
 
 @if (items is null || !items.Any())
 {
@@ -14,7 +20,8 @@
 }
 else
 {
-    <MudTable Bordered="true" FixedHeader="true" Dense="true" ReadOnly="true" Items="items" Hover="true" SortLabel="Sort By" Elevation="3">
+    <MudTable Bordered="true" FixedHeader="true" Dense="true" ReadOnly="true" Items="items" Hover="true" SortLabel="Sort By"
+    Elevation="3">
     <HeaderContent>
         <MudTh Style="width:100px"></MudTh>
         <MudTh>
@@ -33,8 +40,10 @@ else
     </HeaderContent>
     <RowTemplate>
         <MudTd>
-            <MudIconButton title="Edit" Href="@($"/items/{@context.Id}/edit")" Size="Size.Small" Icon="@Icons.Material.Filled.EditNote" aria-label="edit" />
-            <MudIconButton title="Details" Href="@($"/items/{@context.Id}")" Size="Size.Small" Icon="@Icons.Material.Filled.Notes" aria-label="details" />
+            <MudIconButton title="Edit" Href="@($"/items/{@context.Id}/edit")" Size="Size.Small"
+                Icon="@Icons.Material.Filled.EditNote" aria-label="edit" />
+            <MudIconButton title="Details" Href="@($"/items/{@context.Id}")" Size="Size.Small"
+                Icon="@Icons.Material.Filled.Notes" aria-label="details" />
         </MudTd>
         <MudTd DataLabel="Id">@context.Id</MudTd>
         <MudTd DataLabel="Sku">@context.Sku</MudTd>

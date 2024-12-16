@@ -8,22 +8,27 @@
 <PageTitle>Item</PageTitle>
 
 <h1>New Item</h1>
+<MudButton Class="my-5" Href="/items" Variant="Variant.Filled" Color="Color.Tertiary">
+    <MudIcon Size="Size.Small" Icon="@Icons.Material.Outlined.ArrowBack" />
+    All items
+</MudButton>
 
 <EditForm Model="@_newForm" OnValidSubmit="Submit" FormName="NewItemForm">
-    <DataAnnotationsValidator/>
-    <ValidationSummary/>
+    <DataAnnotationsValidator />
+    <ValidationSummary />
     <MudItem xs="12" sm="7">
         <MudCard>
             <MudCardContent>
-                <MudTextField Label="Sku" HelperText="Required. Max 64 characters."
-                              @bind-Value="_newForm.Sku" For="@(() => _newForm.Sku)"/>
+                <MudTextField Label="Sku" HelperText="Required. Max 64 characters." @bind-Value="_newForm.Sku"
+                    For="@(() => _newForm.Sku)" />
                 <MudTextField Label="Name" Class="mt-3" HelperText="Required. Max 128 characters."
-                              @bind-Value="_newForm.Name" For="@(() => _newForm.Name)"/>
+                    @bind-Value="_newForm.Name" For="@(() => _newForm.Name)" />
                 <MudTextField Label="Description" Class="mt-3" HelperText="Optional. Max 256 characters."
-                              @bind-Value="_newForm.Description" For="@(() => _newForm.Description)"/>
+                    @bind-Value="_newForm.Description" For="@(() => _newForm.Description)" />
             </MudCardContent>
             <MudCardActions>
-                <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Submit</MudButton>
+                <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary"
+                    Class="ml-auto">Submit</MudButton>
             </MudCardActions>
         </MudCard>
     </MudItem>
@@ -35,9 +40,9 @@
 
     public class NewForm
     {
-        [Required] [StringLength(64)] public string Sku { get; set; }
+        [Required][StringLength(64)] public string Sku { get; set; }
 
-        [Required] [StringLength(128)] public string Name { get; set; }
+        [Required][StringLength(128)] public string Name { get; set; }
 
         [StringLength(256)] public string? Description { get; set; }
     }
