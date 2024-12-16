@@ -1,0 +1,74 @@
+@page "/items/new"
+@using System.ComponentModel.DataAnnotations
+@using KriosManufacturing.Core.Models
+@inject HttpClient Http
+@inject NavigationManager navigationManager
+@inject ILogger<New> logger
+
+<PageTitle> Item</PageTitle>
+
+<h1>New Item</h1>
+
+<EditForm Model="@_newForm" OnValidSubmit="Submit" FormName="NewItemForm">
+    <DataAnnotationsValidator/>
+    <MudGrid>
+        <MudItem xs="12" sm="7">
+            <MudCard>
+                <MudCardContent>
+                    <MudTextField Label="First name" HelperText="Max. 8 characters"
+                                  @bind-Value="_newForm.Sku" For="@(() => _newForm.Sku)"/>
+                    <MudTextField Label="Email" Class="mt-3"
+                                  @bind-Value="_newForm.Name" For="@(() => _newForm.Name)"/>
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Register</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+        <MudItem xs="12" sm="5">
+            <MudPaper Class="pa-4 mud-height-full">
+                <MudText Typo="Typo.subtitle2">Validation Summary</MudText>
+                <MudText Color="@Color.Error">
+                    <ValidationSummary/>
+                </MudText>
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="12">
+            <MudText Typo="Typo.body2" Align="Align.Center">
+                Fill out the form correctly to see the success message.
+            </MudText>
+        </MudItem>
+    </MudGrid>
+</EditForm>
+
+@code {
+    private Item _item = new();
+    private NewForm _newForm = new();
+
+    public class NewForm
+    {
+        [Required] [StringLength(64)] public string Sku { get; set; }
+
+        [Required] [StringLength(128)] public string Name { get; set; }
+
+        [StringLength(256)] public string? Description { get; set; }
+    }
+
+    private async Task Submit()
+    {
+        _item.Sku = _newForm.Sku;
+        _item.Name = _newForm.Name;
+        _item.Description = _newForm.Description;
+        var result = await Http.PostAsJsonAsync($"/api/v1/items", _item);
+        logger.LogInformation(result.ToString());
+        if (result.IsSuccessStatusCode)
+        {
+            navigationManager.NavigateTo("items");
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+    }
+
+}

@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="MudBlazor" Version="7.*" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\KriosManufacturing.Core\KriosManufacturing.Core.csproj" />
+    <ProjectReference Include="..\KriosManufacturing.ServiceDefaults\KriosManufacturing.ServiceDefaults.csproj" />
+  </ItemGroup>
+</Project>

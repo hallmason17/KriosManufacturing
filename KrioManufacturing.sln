@@ -1,0 +1,62 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E4C3BB6F-EBB8-4631-A809-FF67ED4228F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KriosManufacturing.Api", "src\KriosManufacturing.Api\KriosManufacturing.Api.csproj", "{A7218BA9-2745-402D-A10C-16E3FEB69399}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KriosManufacturing.App", "src\KriosManufacturing.App\KriosManufacturing.App.csproj", "{5DC45D12-F234-46E6-B44E-189ECA7C23AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KriosManufacturing.AppHost", "src\KriosManufacturing.AppHost\KriosManufacturing.AppHost.csproj", "{3CFF04D0-A9D3-4393-88B9-B3D5E65BA836}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KriosManufacturing.Core", "src\KriosManufacturing.Core\KriosManufacturing.Core.csproj", "{A7542543-A5D1-4C30-B9E0-B995ABFECF5C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KriosManufacturing.ServiceDefaults", "src\KriosManufacturing.ServiceDefaults\KriosManufacturing.ServiceDefaults.csproj", "{64DDDFD6-0E7E-4FB3-9389-03C451B62192}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KriosManufacturing.WebApplication", "src\KriosManufacturing.WebApplication\KriosManufacturing.WebApplication.csproj", "{A5CAFB94-36E0-4DD6-BC41-385E49B1D2F7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A7218BA9-2745-402D-A10C-16E3FEB69399}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7218BA9-2745-402D-A10C-16E3FEB69399}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7218BA9-2745-402D-A10C-16E3FEB69399}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7218BA9-2745-402D-A10C-16E3FEB69399}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DC45D12-F234-46E6-B44E-189ECA7C23AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DC45D12-F234-46E6-B44E-189ECA7C23AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DC45D12-F234-46E6-B44E-189ECA7C23AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DC45D12-F234-46E6-B44E-189ECA7C23AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3CFF04D0-A9D3-4393-88B9-B3D5E65BA836}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CFF04D0-A9D3-4393-88B9-B3D5E65BA836}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CFF04D0-A9D3-4393-88B9-B3D5E65BA836}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CFF04D0-A9D3-4393-88B9-B3D5E65BA836}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7542543-A5D1-4C30-B9E0-B995ABFECF5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7542543-A5D1-4C30-B9E0-B995ABFECF5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7542543-A5D1-4C30-B9E0-B995ABFECF5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7542543-A5D1-4C30-B9E0-B995ABFECF5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64DDDFD6-0E7E-4FB3-9389-03C451B62192}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64DDDFD6-0E7E-4FB3-9389-03C451B62192}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64DDDFD6-0E7E-4FB3-9389-03C451B62192}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64DDDFD6-0E7E-4FB3-9389-03C451B62192}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5CAFB94-36E0-4DD6-BC41-385E49B1D2F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5CAFB94-36E0-4DD6-BC41-385E49B1D2F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5CAFB94-36E0-4DD6-BC41-385E49B1D2F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5CAFB94-36E0-4DD6-BC41-385E49B1D2F7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A7218BA9-2745-402D-A10C-16E3FEB69399} = {E4C3BB6F-EBB8-4631-A809-FF67ED4228F8}
+		{5DC45D12-F234-46E6-B44E-189ECA7C23AE} = {E4C3BB6F-EBB8-4631-A809-FF67ED4228F8}
+		{3CFF04D0-A9D3-4393-88B9-B3D5E65BA836} = {E4C3BB6F-EBB8-4631-A809-FF67ED4228F8}
+		{A7542543-A5D1-4C30-B9E0-B995ABFECF5C} = {E4C3BB6F-EBB8-4631-A809-FF67ED4228F8}
+		{64DDDFD6-0E7E-4FB3-9389-03C451B62192} = {E4C3BB6F-EBB8-4631-A809-FF67ED4228F8}
+		{A5CAFB94-36E0-4DD6-BC41-385E49B1D2F7} = {E4C3BB6F-EBB8-4631-A809-FF67ED4228F8}
+	EndGlobalSection
+EndGlobal
