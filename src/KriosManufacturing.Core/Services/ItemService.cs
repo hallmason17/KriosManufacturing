@@ -1,6 +1,5 @@
 using KriosManufacturing.Core.DbContexts;
 using KriosManufacturing.Core.Models;
-
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -40,7 +39,7 @@ public class ItemService(ILogger<ItemService> logger, AppDbContext _dbContext)
 
     public async Task<Item?> UpdateAsync(Item item, CancellationToken ctok)
     {
-        Item currentItem = await _dbContext.Items.AsNoTracking().FirstAsync(x => x.Id == item.Id, ctok)
+        var currentItem = await _dbContext.Items.AsNoTracking().FirstAsync(x => x.Id == item.Id, ctok)
                            ?? throw new ArgumentException("Item does not exist.");
 
         if (item.Sku != currentItem.Sku)

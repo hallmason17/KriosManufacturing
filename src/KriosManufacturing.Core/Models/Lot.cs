@@ -17,7 +17,7 @@ public class Lot
     }
 
     [Required]
-    [StringLength(100)]
+    [StringLength(128)]
     public required string LotNumber
     {
         get;

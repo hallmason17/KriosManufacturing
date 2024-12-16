@@ -11,7 +11,7 @@ public class Order
     }
 
     [Required]
-    [StringLength(30)]
+    [StringLength(32)]
     public required string OrderNumber
     {
         get;
