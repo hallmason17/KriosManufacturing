@@ -1,5 +1,6 @@
 using KriosManufacturing.Core.DbContexts;
 using KriosManufacturing.Core.Services;
+using KriosManufacturing.ServiceDefaults;
 
 using Microsoft.EntityFrameworkCore;
 
@@ -23,7 +24,10 @@ var builder = WebApplication.CreateBuilder(args);
                   });
         })
         .AddControllers();
+
+    builder.AddServiceDefaults();
 }
+
 
 var app = builder.Build();
 {

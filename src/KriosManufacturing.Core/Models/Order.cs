@@ -1,7 +1,6 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace KriosManufacturing.Core.Models;
 
+using System.ComponentModel.DataAnnotations;
 public class Order
 {
     public long Id
@@ -12,7 +11,7 @@ public class Order
 
     [Required]
     [StringLength(32)]
-    public required string OrderNumber
+    required public string OrderNumber
     {
         get;
         set;

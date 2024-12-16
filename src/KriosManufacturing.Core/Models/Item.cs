@@ -12,7 +12,7 @@ public class Item
 
     [Required]
     [StringLength(64)]
-    public required string Sku
+    public string Sku
     {
         get;
         set;
@@ -20,7 +20,7 @@ public class Item
 
     [Required]
     [StringLength(128)]
-    public required string Name
+    public string Name
     {
         get;
         set;

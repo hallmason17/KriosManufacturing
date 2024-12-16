@@ -1,6 +1,5 @@
-using KriosManufacturing.Core.Models;
-
 namespace KriosManufacturing.Api.Dtos.Items;
+using KriosManufacturing.Core.Models;
 
 public record CreateItemRequest(string Sku, string Name, string? Description)
 {

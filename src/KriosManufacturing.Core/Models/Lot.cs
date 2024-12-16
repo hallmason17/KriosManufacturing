@@ -1,6 +1,6 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace KriosManufacturing.Core.Models;
+
+using System.ComponentModel.DataAnnotations;
 
 public class Lot
 {
@@ -18,7 +18,7 @@ public class Lot
 
     [Required]
     [StringLength(128)]
-    public required string LotNumber
+    required public string LotNumber
     {
         get;
         set;
@@ -31,7 +31,7 @@ public class Lot
         set;
     }
 
-    public required Item Item
+    required public Item Item
     {
         get;
         set;
