@@ -8,31 +8,40 @@
 
 @if (items is null || !items.Any())
 {
-    <p><em>Loading...</em></p>
+    <p>
+    <em>Loading...</em>
+</p>
 }
 else
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th aria-label="Temperature in Celsius">Temp. (C)</th>
-                <th aria-label="Temperature in Farenheit">Temp. (F)</th>
-                <th>Summary</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in items.OrderBy(it => it.Id))
-            {
-                <tr>
-                    <td>@item.Id</td>
-                    <td>@item.Sku</td>
-                    <td>@item.Name</td>
-                    <td>@item.Description</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <MudTable Bordered="true" FixedHeader="true" Dense="true" ReadOnly="true" Items="items" Hover="true" SortLabel="Sort By" Elevation="3">
+    <HeaderContent>
+        <MudTh Style="width:100px"></MudTh>
+        <MudTh>
+            <MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<Item, object>(x => x.Id)">Id
+            </MudTableSortLabel>
+        </MudTh>
+        <MudTh>
+            <MudTableSortLabel SortBy="new Func<Item, object>(x => x.Sku)">Sku</MudTableSortLabel>
+        </MudTh>
+        <MudTh>
+            <MudTableSortLabel SortBy="new Func<Item, object>(x => x.Name)">Name</MudTableSortLabel>
+        </MudTh>
+        <MudTh>
+            <MudTableSortLabel SortBy="new Func<Item, object>(x => x.Description!)">Description</MudTableSortLabel>
+        </MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd>
+            <MudIconButton title="Edit" Href="@($"/items/{@context.Id}/edit")" Size="Size.Small" Icon="@Icons.Material.Filled.EditNote" aria-label="edit" />
+            <MudIconButton title="Details" Href="@($"/items/{@context.Id}")" Size="Size.Small" Icon="@Icons.Material.Filled.Notes" aria-label="details" />
+        </MudTd>
+        <MudTd DataLabel="Id">@context.Id</MudTd>
+        <MudTd DataLabel="Sku">@context.Sku</MudTd>
+        <MudTd DataLabel="Name">@context.Name</MudTd>
+        <MudTd DataLabel="Description">@context.Description</MudTd>
+    </RowTemplate>
+</MudTable>
 }
 
 @code {
@@ -42,4 +51,5 @@ else
     {
         items = await Http.GetFromJsonAsync<List<Item>?>("/api/v1/items");
     }
+
 }

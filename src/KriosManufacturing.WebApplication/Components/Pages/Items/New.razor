@@ -5,40 +5,28 @@
 @inject NavigationManager navigationManager
 @inject ILogger<New> logger
 
-<PageTitle> Item</PageTitle>
+<PageTitle>Item</PageTitle>
 
 <h1>New Item</h1>
 
 <EditForm Model="@_newForm" OnValidSubmit="Submit" FormName="NewItemForm">
     <DataAnnotationsValidator/>
-    <MudGrid>
-        <MudItem xs="12" sm="7">
-            <MudCard>
-                <MudCardContent>
-                    <MudTextField Label="First name" HelperText="Max. 8 characters"
-                                  @bind-Value="_newForm.Sku" For="@(() => _newForm.Sku)"/>
-                    <MudTextField Label="Email" Class="mt-3"
-                                  @bind-Value="_newForm.Name" For="@(() => _newForm.Name)"/>
-                </MudCardContent>
-                <MudCardActions>
-                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Register</MudButton>
-                </MudCardActions>
-            </MudCard>
-        </MudItem>
-        <MudItem xs="12" sm="5">
-            <MudPaper Class="pa-4 mud-height-full">
-                <MudText Typo="Typo.subtitle2">Validation Summary</MudText>
-                <MudText Color="@Color.Error">
-                    <ValidationSummary/>
-                </MudText>
-            </MudPaper>
-        </MudItem>
-        <MudItem xs="12">
-            <MudText Typo="Typo.body2" Align="Align.Center">
-                Fill out the form correctly to see the success message.
-            </MudText>
-        </MudItem>
-    </MudGrid>
+    <ValidationSummary/>
+    <MudItem xs="12" sm="7">
+        <MudCard>
+            <MudCardContent>
+                <MudTextField Label="Sku" HelperText="Required. Max 64 characters."
+                              @bind-Value="_newForm.Sku" For="@(() => _newForm.Sku)"/>
+                <MudTextField Label="Name" Class="mt-3" HelperText="Required. Max 128 characters."
+                              @bind-Value="_newForm.Name" For="@(() => _newForm.Name)"/>
+                <MudTextField Label="Description" Class="mt-3" HelperText="Optional. Max 256 characters."
+                              @bind-Value="_newForm.Description" For="@(() => _newForm.Description)"/>
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Submit</MudButton>
+            </MudCardActions>
+        </MudCard>
+    </MudItem>
 </EditForm>
 
 @code {
@@ -66,9 +54,4 @@
             navigationManager.NavigateTo("items");
         }
     }
-
-    protected override async Task OnInitializedAsync()
-    {
-    }
-
 }

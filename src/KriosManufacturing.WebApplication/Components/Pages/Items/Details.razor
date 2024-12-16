@@ -4,26 +4,44 @@
 
 <PageTitle>Item</PageTitle>
 
-<h1>Item @ItemId</h1>
 
 @if (item == null)
 {
-    <p><em>Loading...</em></p>
+    <h1>Item @ItemId</h1>
+    <p>
+    <em>Loading...</em>
+</p>
 }
 else
 {
-    <p>@item.Sku</p>
-    <p>@item.Name</p>
-    <p>@item.Description</p>
+        <MudButton Class="my-5" Href="/items" Variant="Variant.Filled" Color="Color.Tertiary">
+            <MudIcon Size="Size.Small" Icon="@Icons.Material.Outlined.ArrowBack" />
+            All items
+        </MudButton>
+        <h1 class="mb-5">Item @item.Sku</h1>
+
+    <MudItem xs="12" sm="7">
+        <MudCard>
+            <MudCardContent>
+                <MudTextField ReadOnly="true" Label="Sku" @bind-Value="item.Sku" />
+                <MudTextField ReadOnly="true" Label="Name" Class="mt-3" @bind-Value="item.Name" />
+                <MudTextField ReadOnly="true" Label="Description" Class="mt-3" @bind-Value="item.Description" />
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton Href="@($"/items/{item.Id}/edit")" Variant="Variant.Filled" Color="Color.Secondary"
+                    Class="ml-auto">Edit item</MudButton>
+            </MudCardActions>
+        </MudCard>
+    </MudItem>
 }
 
 @code {
-    [Parameter]
-    public int ItemId { get; set; }
+    [Parameter] public int ItemId { get; set; }
     private Item? item;
 
     protected override async Task OnInitializedAsync()
     {
         item = await Http.GetFromJsonAsync<Item>($"/api/v1/items/{ItemId}");
     }
+
 }

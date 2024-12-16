@@ -1,50 +1,74 @@
 @page "/items/{ItemId:int}/edit"
 @using KriosManufacturing.Core.Models
 @inject HttpClient Http
+@inject NavigationManager NavigationManager
 
 <PageTitle>Item</PageTitle>
 
-<h1>Item @ItemId</h1>
 
-@if (item == null)
+@if (item is null)
 {
-    <p><em>Loading...</em></p>
+    <h1>Edit Item</h1>
+    <p>Loading...</p>
 }
 else
 {
-    <EditForm Model="item" OnValidSubmit="Submit">
-    <AntiforgeryToken />
-    <ValidationSummary />
-    <DataAnnotationsValidator />
-    <div class="form-group">
-        <label>
-            Sku:
-            <p class="form-control">@item.Sku</p>
-        </label>
-        <label>
-            Name:
-            <InputText @bind-Value="@item.Name" class="form-control"></InputText>
-        </label>
-        <label>
-            Description:
-            <InputText @bind-Value="@item.Description" class="form-control"></InputText>
-        </label>
+    <div class="d-flex justify-space-between">
+        <div>
+            <MudButton Class="my-5" Href="/items" Variant="Variant.Filled" Color="Color.Tertiary">
+                <MudIcon Size="Size.Small" Icon="@Icons.Material.Outlined.ArrowBack"/>
+                All items
+                </MudButton>
+            <h1 class="mb-5">Edit Item @item.Sku</h1>
+        </div>
+
+        <div>
+            <MudButton Class="my-5" OnClick="DeleteItem" Variant="Variant.Filled" Color="Color.Secondary">Delete item
+            </MudButton>
+        </div>
     </div>
-    <div>
-        <button type="submit" class="btn-primary">Submit</button>
-    </div>
-</EditForm>
+
+    <EditForm Model="@item" OnValidSubmit="Submit" FormName="NewItemForm">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <MudItem xs="12" sm="7">
+            <MudCard>
+                <MudCardContent>
+                    <MudTextField Disabled="true" Label="Sku" HelperText="Sku cannot be changed." @bind-Value="item.Sku"
+                        For="@(() => item.Sku)" />
+                    <MudTextField Label="Name" Class="mt-3" HelperText="Required. Max 128 characters."
+                        @bind-Value="item.Name" For="@(() => item.Name)" />
+                    <MudTextField Label="Description" Class="mt-3" HelperText="Optional. Max 256 characters."
+                        @bind-Value="item.Description" For="@(() => item.Description)" />
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary"
+                        Class="ml-auto">Submit</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+    </EditForm>
 }
+
 @code {
-    [Parameter]
-    public int ItemId { get; set; }
+    [Parameter] public int ItemId { get; set; }
     private Item? item;
 
     private async Task Submit()
     {
         var result = await Http.PutAsJsonAsync($"/api/v1/items/{ItemId}", item!);
-        if (result.IsSuccessStatusCode) {
+        if (result.IsSuccessStatusCode)
+        {
+            NavigationManager.NavigateTo($"/items/{ItemId}");
+        }
+    }
 
+    private async Task DeleteItem()
+    {
+        var result = await Http.DeleteAsync($"/api/v1/items/{ItemId}");
+        if (result.IsSuccessStatusCode)
+        {
+            NavigationManager.NavigateTo($"/items");
         }
     }
 
@@ -52,4 +76,5 @@ else
     {
         item = await Http.GetFromJsonAsync<Item>($"/api/v1/items/{ItemId}");
     }
+
 }
