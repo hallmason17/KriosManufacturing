@@ -8,30 +8,41 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
 {
     public DbSet<Item> Items
     {
-        get; set;
-    }
-    public DbSet<Location> Locations
-    {
-        get; set;
-    }
-    public DbSet<InventoryRecord> InventoryRecords
-    {
-        get; set;
-    }
-    public DbSet<Lot> Lots
-    {
-        get; set;
-    }
-    public DbSet<Order> Orders
-    {
-        get; set;
-    }
-    public DbSet<OrderDetail> OrderDetails
-    {
-        get; set;
+        get;
+        set;
     }
 
-    override protected void OnModelCreating(ModelBuilder modelBuilder)
+    public DbSet<Location> Locations
+    {
+        get;
+        set;
+    }
+
+    public DbSet<InventoryRecord> InventoryRecords
+    {
+        get;
+        set;
+    }
+
+    public DbSet<Lot> Lots
+    {
+        get;
+        set;
+    }
+
+    public DbSet<Order> Orders
+    {
+        get;
+        set;
+    }
+
+    public DbSet<OrderDetail> OrderDetails
+    {
+        get;
+        set;
+    }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Lot>(lot =>
         {
@@ -44,7 +55,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
         {
             location.HasKey(location => location.Id);
             location.HasIndex(loc => new { loc.Unit, loc.Cell })
-                    .IsUnique();
+                .IsUnique();
         });
 
         modelBuilder.Entity<Item>(item =>
@@ -55,12 +66,12 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
         });
 
         modelBuilder.Entity<InventoryRecord>(ir =>
-        {
-            ir.HasKey(ir => ir.Id);
-        }
+            {
+                ir.HasKey(ir => ir.Id);
+            }
         );
         modelBuilder.Entity<InventoryRecord>()
-        .ToTable(t => t.HasCheckConstraint("CK_Quantity", "\"Quantity\" > 0"));
+            .ToTable(t => t.HasCheckConstraint("CK_Quantity", "\"Quantity\" > 0"));
 
         modelBuilder.Entity<Order>(order =>
         {

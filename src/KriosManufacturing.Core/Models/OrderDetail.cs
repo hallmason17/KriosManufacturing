@@ -4,26 +4,37 @@ public class OrderDetail
 {
     public long Id
     {
-        get; set;
+        get;
+        set;
     }
+
     public long OrderId
     {
-        get; set;
+        get;
+        set;
     }
+
     public long ItemId
     {
-        get; set;
+        get;
+        set;
     }
+
     public int Quantity
     {
-        get; set;
+        get;
+        set;
     }
+
     public required Order Order
     {
-        get; set;
+        get;
+        set;
     }
+
     public required Item Item
     {
-        get; set;
+        get;
+        set;
     }
 }

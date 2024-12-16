@@ -1,4 +1,3 @@
-
 using KriosManufacturing.Core.DbContexts;
 using KriosManufacturing.Core.Models;
 
@@ -6,34 +5,35 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace KriosManufacturing.Core.Services;
+
 public class LotService(ILogger<LotService> logger, AppDbContext dbContext)
 {
-    public async Task<IEnumerable<Lot>> GetAllAsync()
+    public async Task<IEnumerable<Lot>> GetAllAsync(CancellationToken ctok)
     {
-        return await dbContext.Lots.ToListAsync();
+        return await dbContext.Lots.ToListAsync(ctok);
     }
 
-    public async Task<Lot?> GetById(long id)
+    public async Task<Lot?> GetById(long id, CancellationToken ctok)
     {
-        return await dbContext.Lots.FindAsync(id);
+        return await dbContext.Lots.FindAsync(id, ctok);
     }
 
-    public async Task CreateAsync(Lot lot)
+    public async Task CreateAsync(Lot lot, CancellationToken ctok)
     {
         dbContext.Lots.Add(lot);
-        await dbContext.SaveChangesAsync();
+        await dbContext.SaveChangesAsync(ctok);
     }
 
-    public async Task<bool> DeleteByIdAsync(long id)
+    public async Task<bool> DeleteByIdAsync(long id, CancellationToken ctok)
     {
-        var result = await dbContext.Lots.Where(x => x.Id == id).ExecuteDeleteAsync();
+        int result = await dbContext.Lots.Where(x => x.Id == id).ExecuteDeleteAsync(ctok);
         return result > 0;
     }
 
-    public async Task<Lot?> UpdateAsync(Lot lot)
+    public async Task<Lot?> UpdateAsync(Lot lot, CancellationToken ctok)
     {
         dbContext.Lots.Update(lot);
-        var result = await dbContext.SaveChangesAsync();
+        int result = await dbContext.SaveChangesAsync(ctok);
         return result > 0 ? lot : default;
     }
 }

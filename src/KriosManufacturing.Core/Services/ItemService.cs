@@ -5,40 +5,43 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace KriosManufacturing.Core.Services;
+
 public class ItemService(ILogger<ItemService> logger, AppDbContext _dbContext)
 {
-    public async Task<IEnumerable<Item>> GetAllAsync()
+    public async Task<IEnumerable<Item>> GetAllAsync(CancellationToken ctok)
     {
-        return await _dbContext.Items.ToListAsync();
+        return await _dbContext.Items.ToListAsync(ctok);
     }
 
-    public async Task<Item?> GetByIdAsync(long id)
+    public async Task<Item?> GetByIdAsync(long id, CancellationToken ctok)
     {
-        return await _dbContext.Items.FindAsync(id);
+        return await _dbContext.Items.FindAsync(id, ctok);
     }
 
-    public async Task<Item?> GetBySkuAsync(string sku)
+    public async Task<Item?> GetBySkuAsync(string sku, CancellationToken ctok)
     {
-        return await _dbContext.Items.Where(x => x.Sku == sku).SingleOrDefaultAsync();
+        return await _dbContext.Items.Where(x => x.Sku == sku)
+            .SingleOrDefaultAsync(ctok);
     }
 
-    public async Task<Item?> CreateAsync(Item item)
+    public async Task<Item?> CreateAsync(Item item, CancellationToken ctok)
     {
         _dbContext.Items.Add(item);
-        var result = await _dbContext.SaveChangesAsync();
+        int result = await _dbContext.SaveChangesAsync(ctok);
         return result > 0 ? item : default;
     }
 
-    public async Task<bool> DeleteByIdAsync(long id)
+    public async Task<bool> DeleteByIdAsync(long id, CancellationToken ctok)
     {
-        var result = await _dbContext.Items.Where(x => x.Id == id).ExecuteDeleteAsync();
+        int result = await _dbContext.Items.Where(x => x.Id == id)
+            .ExecuteDeleteAsync(ctok);
         return result > 0;
     }
 
-    public async Task<Item?> UpdateAsync(Item item)
+    public async Task<Item?> UpdateAsync(Item item, CancellationToken ctok)
     {
-        var currentItem = await _dbContext.Items.AsNoTracking().FirstAsync(x => x.Id == item.Id)
-            ?? throw new ArgumentException("Item does not exist.");
+        Item currentItem = await _dbContext.Items.AsNoTracking().FirstAsync(x => x.Id == item.Id, ctok)
+                           ?? throw new ArgumentException("Item does not exist.");
 
         if (item.Sku != currentItem.Sku)
         {
@@ -46,7 +49,7 @@ public class ItemService(ILogger<ItemService> logger, AppDbContext _dbContext)
         }
 
         _dbContext.Items.Update(item);
-        var result = await _dbContext.SaveChangesAsync();
+        int result = await _dbContext.SaveChangesAsync(ctok);
         return result > 0 ? item : default;
     }
 }

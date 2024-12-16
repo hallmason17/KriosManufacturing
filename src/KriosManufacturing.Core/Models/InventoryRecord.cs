@@ -4,42 +4,49 @@ public class InventoryRecord
 {
     public long Id
     {
-        get; set;
+        get;
+        set;
     }
 
     public long ItemId
     {
-        get; set;
+        get;
+        set;
     }
 
     public long LocationId
     {
-        get; set;
+        get;
+        set;
     }
 
     public long LotId
     {
-        get; set;
+        get;
+        set;
     }
 
     public int Quantity
     {
-        get; set;
+        get;
+        set;
     }
 
     public required Item Item
     {
-        get; set;
+        get;
+        set;
     }
 
     public required Location Location
     {
-        get; set;
+        get;
+        set;
     }
 
     public required Lot Lot
     {
-        get; set;
+        get;
+        set;
     }
-
 }

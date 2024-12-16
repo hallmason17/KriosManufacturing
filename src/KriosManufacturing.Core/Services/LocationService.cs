@@ -5,34 +5,36 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace KriosManufacturing.Core.Services;
+
 public class LocationService(ILogger<LocationService> logger, AppDbContext context)
 {
-    public async Task<IEnumerable<Location>> GetAllAsync()
+    public async Task<IEnumerable<Location>> GetAllAsync(CancellationToken ctok)
     {
-        return await context.Locations.ToListAsync();
+        return await context.Locations.ToListAsync(ctok);
     }
 
-    public async Task<Location?> GetById(long id)
+    public async Task<Location?> GetById(long id, CancellationToken ctok)
     {
-        return await context.Locations.FindAsync(id);
+        return await context.Locations.FindAsync(id, ctok);
     }
 
-    public async Task CreateAsync(Location location)
+    public async Task CreateAsync(Location location, CancellationToken ctok)
     {
         context.Locations.Add(location);
-        await context.SaveChangesAsync();
+        await context.SaveChangesAsync(ctok);
     }
 
-    public async Task<bool> DeleteByIdAsync(long id)
+    public async Task<bool> DeleteByIdAsync(long id, CancellationToken ctok)
     {
-        var result = await context.Locations.Where(x => x.Id == id).ExecuteDeleteAsync();
+        int result = await context.Locations.Where(x => x.Id == id)
+            .ExecuteDeleteAsync(ctok);
         return result > 0;
     }
 
-    public async Task<Location?> UpdateAsync(Location location)
+    public async Task<Location?> UpdateAsync(Location location, CancellationToken ctok)
     {
         context.Locations.Update(location);
-        var result = await context.SaveChangesAsync();
+        int result = await context.SaveChangesAsync(ctok);
         return result > 0 ? location : default;
     }
 }

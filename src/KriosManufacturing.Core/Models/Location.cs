@@ -6,25 +6,29 @@ public class Location
 {
     public long Id
     {
-        get; set;
+        get;
+        set;
     }
 
     [Required]
     [StringLength(16)]
     public required string Unit
     {
-        get; set;
+        get;
+        set;
     }
 
     [Required]
     [StringLength(16)]
     public required string Cell
     {
-        get; set;
+        get;
+        set;
     }
 
     public ICollection<InventoryRecord>? InventoryRecords
     {
-        get; set;
+        get;
+        set;
     }
 }

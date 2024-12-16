@@ -6,31 +6,36 @@ public class Item
 {
     public long Id
     {
-        get; set;
+        get;
+        set;
     }
 
     [Required]
     [StringLength(64)]
     public required string Sku
     {
-        get; set;
+        get;
+        set;
     }
 
     [Required]
     [StringLength(128)]
     public required string Name
     {
-        get; set;
+        get;
+        set;
     }
 
     [StringLength(256)]
     public string? Description
     {
-        get; set;
+        get;
+        set;
     }
 
-    ICollection<InventoryRecord>? InventoryRecords
+    private ICollection<InventoryRecord>? InventoryRecords
     {
-        get; set;
+        get;
+        set;
     }
 }

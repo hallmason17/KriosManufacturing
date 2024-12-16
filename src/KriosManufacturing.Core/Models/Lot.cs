@@ -6,29 +6,34 @@ public class Lot
 {
     public long Id
     {
-        get; set;
+        get;
+        set;
     }
 
     public long ItemId
     {
-        get; set;
+        get;
+        set;
     }
 
     [Required]
     [StringLength(100)]
     public required string LotNumber
     {
-        get; set;
+        get;
+        set;
     }
 
     [Required]
     public DateOnly ExpirationDate
     {
-        get; set;
+        get;
+        set;
     }
 
     public required Item Item
     {
-        get; set;
+        get;
+        set;
     }
 }
