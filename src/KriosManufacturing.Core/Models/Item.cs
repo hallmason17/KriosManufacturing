@@ -33,9 +33,8 @@ public class Item
         set;
     }
 
-    private ICollection<InventoryRecord>? InventoryRecords
-    {
-        get;
-        set;
-    }
+    public ICollection<InventoryRecord> InventoryRecords
+    { get; } = [];
+    public ICollection<Lot> Lots
+    { get; } = [];
 }

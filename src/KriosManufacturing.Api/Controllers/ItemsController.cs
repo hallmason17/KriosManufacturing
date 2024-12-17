@@ -3,6 +3,7 @@ namespace KriosManufacturing.Api.Controllers;
 using KriosManufacturing.Api.Dtos.Items;
 using KriosManufacturing.Core.Models;
 using KriosManufacturing.Core.Services;
+
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
@@ -52,12 +53,22 @@ public class ItemsController(ItemService itemService) : ControllerBase
     [HttpPut("{itemId}")]
     public async Task<IActionResult> UpdateItem(long itemId, Item item, CancellationToken ctok)
     {
+        if (itemId != item.Id)
+        {
+            return BadRequest();
+        }
+
+        await _itemService.UpdateAsync(item, ctok);
+
+        return NoContent();
+        /*
         var newItem = await _itemService.UpdateAsync(item, ctok);
         return newItem switch
         {
             null => Problem(statusCode: StatusCodes.Status400BadRequest, detail: "Item not updated"),
             _ => Ok(newItem)
         };
+        */
     }
 
     [HttpDelete("{itemId:long}")]
