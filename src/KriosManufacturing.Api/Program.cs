@@ -1,10 +1,15 @@
+using System.Text.Json;
+using System.Text.Json.Serialization;
+
 using KriosManufacturing.Core.DbContexts;
 using KriosManufacturing.Core.Services;
 using KriosManufacturing.ServiceDefaults;
 
 using Microsoft.EntityFrameworkCore;
 
-var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+using Scalar.AspNetCore;
+
+var myAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 var builder = WebApplication.CreateBuilder(args);
 {
@@ -17,30 +22,37 @@ var builder = WebApplication.CreateBuilder(args);
         .AddOpenApi()
         .AddCors(options =>
         {
-            options.AddPolicy(name: MyAllowSpecificOrigins,
-                  policy =>
-                  {
-                      _ = policy.WithOrigins("http://localhost").AllowAnyMethod().AllowAnyHeader();
-                  });
+            options.AddPolicy(
+                name: myAllowSpecificOrigins,
+                policy =>
+                {
+                    _ = policy.WithOrigins("http://localhost").AllowAnyMethod().AllowAnyHeader();
+                });
         })
-        .AddControllers();
+        .AddControllers()
+        .AddJsonOptions(opts => {
+            opts.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+            opts.JsonSerializerOptions.WriteIndented = true;
+        });
 
     builder.AddServiceDefaults();
 }
 
-
 var app = builder.Build();
 {
-    //app.UseExceptionHandler();
-
+    // app.UseExceptionHandler();
     if (app.Environment.IsDevelopment())
     {
         app.MapOpenApi();
+        app.MapScalarApiReference(opts =>
+        {
+            opts.WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient);
+        });
     }
 
     app.UseHttpsRedirection();
     app.MapControllers();
-    app.UseCors(MyAllowSpecificOrigins);
+    app.UseCors(myAllowSpecificOrigins);
 
     app.Run();
 }
