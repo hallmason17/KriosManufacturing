@@ -1,0 +1,60 @@
+﻿@page "/locations"
+@using KriosManufacturing.Core.Models
+@inject HttpClient Http
+
+<PageTitle>Locations</PageTitle>
+
+<div class="d-flex justify-space-between">
+<h1 class="my-5">All Locations</h1>
+<MudButton Class="my-5" Href="/locations/new" Variant="Variant.Filled" Color="Color.Tertiary">
+    <MudIcon Size="Size.Small" Icon="@Icons.Material.Outlined.Add" />
+    Add a Location
+</MudButton>
+</div>
+
+@if (locations is null || !locations.Any())
+{
+    <p>
+    <em>Loading...</em>
+</p>
+}
+else
+{
+    <MudTable Bordered="true" FixedHeader="true" Dense="true" ReadOnly="true" Items="locations" Hover="true" SortLabel="Sort By"
+    Elevation="3">
+    <HeaderContent>
+        <MudTh Style="width:100px"></MudTh>
+        <MudTh>
+            <MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<Location, object>(x => x.Id)">Id
+            </MudTableSortLabel>
+        </MudTh>
+        <MudTh>
+            <MudTableSortLabel SortBy="new Func<Location, object>(x => x.Unit)">Unit</MudTableSortLabel>
+        </MudTh>
+        <MudTh>
+            <MudTableSortLabel SortBy="new Func<Location, object>(x => x.Cell)">Cell</MudTableSortLabel>
+        </MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd>
+            <MudIconButton title="Edit" Href="@($"/locations/{@context.Id}/edit")" Size="Size.Small"
+                Icon="@Icons.Material.Filled.EditNote" aria-label="edit" />
+            <MudIconButton title="Details" Href="@($"/locations/{@context.Id}")" Size="Size.Small"
+                Icon="@Icons.Material.Filled.Notes" aria-label="details" />
+        </MudTd>
+        <MudTd DataLabel="Id">@context.Id</MudTd>
+        <MudTd DataLabel="Unit">@context.Unit</MudTd>
+        <MudTd DataLabel="Cell">@context.Cell</MudTd>
+    </RowTemplate>
+</MudTable>
+}
+
+@code {
+    private IEnumerable<Location>? locations = new List<Location>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        locations = await Http.GetFromJsonAsync<List<Location>?>("/api/v1/locations");
+    }
+
+}

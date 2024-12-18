@@ -1,0 +1,78 @@
+@page "/locations/{LocationId:int}/edit"
+@using KriosManufacturing.Core.Models
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+
+<PageTitle>Location</PageTitle>
+
+
+@if (location is null)
+{
+    <h1>Edit Location</h1>
+    <p>Loading...</p>
+}
+else
+{
+    <div class="d-flex justify-space-between">
+        <div>
+            <MudButton Class="my-5" Href="/locations" Variant="Variant.Filled" Color="Color.Tertiary">
+                <MudIcon Size="Size.Small" Icon="@Icons.Material.Outlined.ArrowBack"/>
+                All locations
+                </MudButton>
+            <h1 class="mb-5">Edit Location @location.Unit-@location.Cell</h1>
+        </div>
+
+        <div>
+            <MudButton Class="my-5" OnClick="DeleteLocation" Variant="Variant.Filled" Color="Color.Secondary">Delete location
+            </MudButton>
+        </div>
+    </div>
+
+    <EditForm Model="@location" OnValidSubmit="Submit" FormCell="NewLocationForm">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <MudItem xs="12" sm="7">
+            <MudCard>
+                <MudCardContent>
+                    <MudTextField Disabled="true" Label="Unit" HelperText="Unit cannot be changed." @bind-Value="location.Unit"
+                        For="@(() => location.Unit)" />
+                    <MudTextField Disabled="true" Label="Cell" Class="mt-3" HelperText="Cell cannot be changed."
+                        @bind-Value="location.Cell" />
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary"
+                        Class="ml-auto">Submit</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+    </EditForm>
+}
+
+@code {
+    [Parameter] public int LocationId { get; set; }
+    private Location? location;
+
+    private async Task Submit()
+    {
+        var result = await Http.PutAsJsonAsync($"/api/v1/locations/{LocationId}", location!);
+        if (result.IsSuccessStatusCode)
+        {
+            NavigationManager.NavigateTo($"/locations/{LocationId}");
+        }
+    }
+
+    private async Task DeleteLocation()
+    {
+        var result = await Http.DeleteAsync($"/api/v1/locations/{LocationId}");
+        if (result.IsSuccessStatusCode)
+        {
+            NavigationManager.NavigateTo($"/locations");
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        location = await Http.GetFromJsonAsync<Location>($"/api/v1/locations/{LocationId}");
+    }
+
+}

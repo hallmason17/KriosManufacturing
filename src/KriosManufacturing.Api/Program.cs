@@ -21,6 +21,8 @@ var builder = WebApplication.CreateBuilder(args);
         })
         .AddScoped<IItemRepository, ItemRepository>()
         .AddScoped<IInventoryRecordRepository, InventoryRecordRepository>()
+        .AddScoped<ILocationRepository, LocationRepository>()
+        .AddScoped<LocationService>()
         .AddScoped<InventoryRecordService>()
         .AddScoped<ItemService>()
         .AddOpenApi()

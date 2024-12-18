@@ -1,0 +1,46 @@
+@page "/locations/{LocationId:int}"
+@using KriosManufacturing.Core.Models
+@inject HttpClient Http
+
+<PageTitle>Location</PageTitle>
+
+
+@if (location == null)
+{
+    <h1>Location @LocationId</h1>
+    <p>
+    <em>Loading...</em>
+</p>
+}
+else
+{
+        <MudButton Class="my-5" Href="/locations" Variant="Variant.Filled" Color="Color.Tertiary">
+            <MudIcon Size="Size.Small" Icon="@Icons.Material.Outlined.ArrowBack" />
+            All locations
+        </MudButton>
+        <h1 class="mb-5">Location @location.Id</h1>
+
+    <MudItem xs="12" sm="7">
+        <MudCard>
+            <MudCardContent>
+                <MudTextField ReadOnly="true" Label="Unit" @bind-Value="location.Unit" />
+                <MudTextField ReadOnly="true" Label="Cell" Class="mt-3" @bind-Value="location.Cell" />
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton Href="@($"/locations/{location.Id}/edit")" Variant="Variant.Filled" Color="Color.Secondary"
+                    Class="ml-auto">Edit location</MudButton>
+            </MudCardActions>
+        </MudCard>
+    </MudItem>
+}
+
+@code {
+    [Parameter] public int LocationId { get; set; }
+    private Location? location;
+
+    protected override async Task OnInitializedAsync()
+    {
+        location = await Http.GetFromJsonAsync<Location>($"/api/v1/locations/{LocationId}");
+    }
+
+}
