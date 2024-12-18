@@ -12,7 +12,7 @@ public class Location
 
     [Required]
     [StringLength(16)]
-    public required string Unit
+    required public string Unit
     {
         get;
         set;
@@ -20,7 +20,7 @@ public class Location
 
     [Required]
     [StringLength(16)]
-    public required string Cell
+    required public string Cell
     {
         get;
         set;

@@ -26,13 +26,13 @@ public class OrderDetail
         set;
     }
 
-    public required Order Order
+    public Order? Order
     {
         get;
         set;
     }
 
-    public required Item Item
+    public Item? Item
     {
         get;
         set;

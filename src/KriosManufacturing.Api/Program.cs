@@ -1,6 +1,5 @@
 using System.Text.Json.Serialization;
 
-using KriosManufacturing.Core.Models;
 using KriosManufacturing.Core.Repositories;
 using KriosManufacturing.Core.Services;
 using KriosManufacturing.Infrastructure.Data;
@@ -21,6 +20,8 @@ var builder = WebApplication.CreateBuilder(args);
             _ = opts.UseNpgsql("Server=localhost;Port=5432;Database=KriosManufacturing;Username=postgres;Password=Vince123");
         })
         .AddScoped<IItemRepository, ItemRepository>()
+        .AddScoped<IInventoryRecordRepository, InventoryRecordRepository>()
+        .AddScoped<InventoryRecordService>()
         .AddScoped<ItemService>()
         .AddOpenApi()
         .AddCors(options =>

@@ -32,19 +32,19 @@ public class InventoryRecord
         set;
     }
 
-    public required Item Item
+    public Item? Item
     {
         get;
         set;
     }
 
-    public required Location Location
+    public Location? Location
     {
         get;
         set;
     }
 
-    public required Lot Lot
+    public Lot? Lot
     {
         get;
         set;

@@ -35,24 +35,20 @@
 </EditForm>
 
 @code {
-    private Item _item = new();
     private NewForm _newForm = new();
 
     public class NewForm
     {
-        [Required][StringLength(64)] public string Sku { get; set; }
+        [Required][StringLength(64)] public string? Sku { get; set; }
 
-        [Required][StringLength(128)] public string Name { get; set; }
+        [Required][StringLength(128)] public string? Name { get; set; }
 
         [StringLength(256)] public string? Description { get; set; }
     }
 
     private async Task Submit()
     {
-        _item.Sku = _newForm.Sku;
-        _item.Name = _newForm.Name;
-        _item.Description = _newForm.Description;
-        var result = await Http.PostAsJsonAsync($"/api/v1/items", _item);
+        var result = await Http.PostAsJsonAsync($"/api/v1/items", _newForm);
         logger.LogInformation(result.ToString());
         if (result.IsSuccessStatusCode)
         {

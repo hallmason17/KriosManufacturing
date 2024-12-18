@@ -10,18 +10,6 @@ using Microsoft.AspNetCore.Mvc;
 [Route("/api/v1/[controller]")]
 public class ItemsController(ItemService itemService) : ControllerBase
 {
-    [HttpOptions("{id}")]
-    public IActionResult PreflightRoute(int id)
-    {
-        return NoContent();
-    }
-
-    [HttpOptions]
-    public IActionResult PreflightRoute()
-    {
-        return NoContent();
-    }
-
     private readonly ItemService _itemService = itemService;
     [HttpGet]
     public async Task<IActionResult> GetItems(CancellationToken ctok)

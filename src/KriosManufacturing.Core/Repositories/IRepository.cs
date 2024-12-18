@@ -8,9 +8,9 @@ where T : class
 
     Task<T?> GetById(long id, CancellationToken ctok);
 
-    Task<T?> CreateAsync(T item, CancellationToken ctok);
+    Task<T?> CreateAsync(T entity, CancellationToken ctok);
 
-    Task<T?> UpdateAsync(T item, CancellationToken ctok);
+    Task<T?> UpdateAsync(T entity, CancellationToken ctok);
 
     Task<bool> DeleteByIdAsync(long id, CancellationToken ctok);
 }

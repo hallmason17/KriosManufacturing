@@ -13,6 +13,6 @@ public class ItemRepository(AppDbContext _dbContext) : Repository<Item>(_dbConte
     protected AppDbContext dbContext = _dbContext;
     public Task<Item?> GetBySkuAsync(string sku, CancellationToken ctok)
     {
-        return dbContext.Items.Where(it => it.Sku == sku).FirstOrDefaultAsync(ctok);
+        return dbContext.Items.Where(it => it.Sku == sku).SingleOrDefaultAsync(ctok);
     }
 }
