@@ -1,13 +1,14 @@
-using KriosManufacturing.Core.DbContexts;
+namespace KriosManufacturing.Core.Services;
+
 using KriosManufacturing.Core.Models;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace KriosManufacturing.Core.Services;
 
-public class LotService(ILogger<LotService> logger, AppDbContext dbContext)
+public class LotService(ILogger<LotService> logger)
 {
+    /*
     public async Task<IEnumerable<Lot>> GetAllAsync(CancellationToken ctok)
     {
         return await dbContext.Lots.ToListAsync(ctok);
@@ -36,4 +37,5 @@ public class LotService(ILogger<LotService> logger, AppDbContext dbContext)
         int result = await dbContext.SaveChangesAsync(ctok);
         return result > 0 ? lot : default;
     }
+    */
 }

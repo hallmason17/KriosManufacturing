@@ -1,8 +1,7 @@
-/*
+namespace KriosManufacturing.Infrastructure.Data;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-
-namespace KriosManufacturing.Core.DbContexts;
 
 public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
 {
@@ -15,4 +14,3 @@ public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
         return new AppDbContext(optionsBuilder.Options);
     }
 }
-*/

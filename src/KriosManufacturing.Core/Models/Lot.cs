@@ -31,7 +31,7 @@ public class Lot
         set;
     }
 
-    required public Item Item
+    public Item? Item
     {
         get;
         set;

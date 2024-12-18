@@ -1,13 +1,10 @@
 namespace KriosManufacturing.Core.Services;
 
-using KriosManufacturing.Core.DbContexts;
-using KriosManufacturing.Core.Models;
-
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-public class LocationService(ILogger<LocationService> logger, AppDbContext context)
+public class LocationService(ILogger<LocationService> logger)
 {
+    /*
     public async Task<IEnumerable<Location>> GetAllAsync(CancellationToken ctok)
     {
         return await context.Locations.ToListAsync(ctok);
@@ -37,4 +34,5 @@ public class LocationService(ILogger<LocationService> logger, AppDbContext conte
         int result = await context.SaveChangesAsync(ctok);
         return result > 0 ? location : default;
     }
+    */
 }

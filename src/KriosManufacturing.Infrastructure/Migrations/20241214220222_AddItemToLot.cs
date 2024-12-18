@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace KriosManufacturing.Core.Migrations;
+namespace KriosManufacturing.Infrastructure.Migrations;
 
 /// <inheritdoc />
 public partial class AddItemToLot : Migration

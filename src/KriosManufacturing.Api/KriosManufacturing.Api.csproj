@@ -19,6 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\KriosManufacturing.Core\KriosManufacturing.Core.csproj" />
     <ProjectReference Include="..\KriosManufacturing.ServiceDefaults\KriosManufacturing.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\KriosManufacturing.Infrastructure\KriosManufacturing.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

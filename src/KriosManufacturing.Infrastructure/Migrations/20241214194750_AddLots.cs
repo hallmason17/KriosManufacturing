@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace KriosManufacturing.Core.Migrations;
+namespace KriosManufacturing.Infrastructure.Migrations;
 
 /// <inheritdoc />
 public partial class AddLots : Migration

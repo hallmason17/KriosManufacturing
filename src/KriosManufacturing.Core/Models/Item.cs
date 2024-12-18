@@ -1,7 +1,6 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace KriosManufacturing.Core.Models;
 
+using System.ComponentModel.DataAnnotations;
 public class Item
 {
     public long Id
@@ -12,7 +11,7 @@ public class Item
 
     [Required]
     [StringLength(64)]
-    public string Sku
+    required public string Sku
     {
         get;
         set;
@@ -20,7 +19,7 @@ public class Item
 
     [Required]
     [StringLength(128)]
-    public string Name
+    required public string Name
     {
         get;
         set;

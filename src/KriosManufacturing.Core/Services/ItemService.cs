@@ -1,44 +1,40 @@
 namespace KriosManufacturing.Core.Services;
 
-using KriosManufacturing.Core.DbContexts;
+using KriosManufacturing.Core.Repositories;
 using KriosManufacturing.Core.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-public class ItemService(ILogger<ItemService> logger, AppDbContext _dbContext)
+public class ItemService(ILogger<ItemService> logger, IItemRepository itemRepository)
 {
     public async Task<IEnumerable<Item>> GetAllAsync(CancellationToken ctok)
     {
-        return await _dbContext.Items.ToListAsync(ctok);
+        return await itemRepository.GetAll(ctok);
     }
 
     public async Task<Item?> GetByIdAsync(long id, CancellationToken ctok)
     {
-        return await _dbContext.Items.FindAsync(id, ctok);
+        return await itemRepository.GetById(id, ctok);
     }
 
     public async Task<Item?> GetBySkuAsync(string sku, CancellationToken ctok)
     {
-        return await _dbContext.Items.Where(x => x.Sku == sku)
-            .SingleOrDefaultAsync(ctok);
+        return await itemRepository.GetBySkuAsync(sku, ctok); 
     }
 
     public async Task<Item?> CreateAsync(Item item, CancellationToken ctok)
     {
-        _dbContext.Items.Add(item);
-        int result = await _dbContext.SaveChangesAsync(ctok);
-        return result > 0 ? item : default;
+        return await itemRepository.CreateAsync(item, ctok);
     }
 
     public async Task<bool> DeleteByIdAsync(long id, CancellationToken ctok)
     {
-        int result = await _dbContext.Items.Where(x => x.Id == id)
-            .ExecuteDeleteAsync(ctok);
-        return result > 0;
+        return await itemRepository.DeleteByIdAsync(id, ctok);
     }
 
     public async Task<Item?> UpdateAsync(Item item, CancellationToken ctok)
     {
+        /*
         var currentItem = await _dbContext.Items.AsNoTracking().FirstAsync(x => x.Id == item.Id, ctok)
                            ?? throw new ArgumentException("Item does not exist.");
 
@@ -50,5 +46,7 @@ public class ItemService(ILogger<ItemService> logger, AppDbContext _dbContext)
         _dbContext.Items.Update(item);
         int result = await _dbContext.SaveChangesAsync(ctok);
         return result > 0 ? item : default;
+        */
+        return await itemRepository.UpdateAsync(item, ctok);
     }
 }

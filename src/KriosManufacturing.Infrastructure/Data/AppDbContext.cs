@@ -1,9 +1,8 @@
-/*
+namespace KriosManufacturing.Infrastructure.Data;
+
 using KriosManufacturing.Core.Models;
 
 using Microsoft.EntityFrameworkCore;
-
-namespace KriosManufacturing.Core.DbContexts;
 
 public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
@@ -91,4 +90,3 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
         modelBuilder.Entity<OrderDetail>().ToTable(t => t.HasCheckConstraint("CK_Quantity", "\"Quantity\" > 0"));
     }
 }
-*/

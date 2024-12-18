@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KriosManufacturing.ServiceD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KriosManufacturing.WebApplication", "src\KriosManufacturing.WebApplication\KriosManufacturing.WebApplication.csproj", "{A5CAFB94-36E0-4DD6-BC41-385E49B1D2F7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KriosManufacturing.Infrastructure", "src\KriosManufacturing.Infrastructure\KriosManufacturing.Infrastructure.csproj", "{C4831CB7-F3B5-4FB9-B3D7-F2F238DAEEE6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +52,10 @@ Global
 		{A5CAFB94-36E0-4DD6-BC41-385E49B1D2F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A5CAFB94-36E0-4DD6-BC41-385E49B1D2F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A5CAFB94-36E0-4DD6-BC41-385E49B1D2F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4831CB7-F3B5-4FB9-B3D7-F2F238DAEEE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4831CB7-F3B5-4FB9-B3D7-F2F238DAEEE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4831CB7-F3B5-4FB9-B3D7-F2F238DAEEE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4831CB7-F3B5-4FB9-B3D7-F2F238DAEEE6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{A7218BA9-2745-402D-A10C-16E3FEB69399} = {E4C3BB6F-EBB8-4631-A809-FF67ED4228F8}
@@ -58,5 +64,6 @@ Global
 		{A7542543-A5D1-4C30-B9E0-B995ABFECF5C} = {E4C3BB6F-EBB8-4631-A809-FF67ED4228F8}
 		{64DDDFD6-0E7E-4FB3-9389-03C451B62192} = {E4C3BB6F-EBB8-4631-A809-FF67ED4228F8}
 		{A5CAFB94-36E0-4DD6-BC41-385E49B1D2F7} = {E4C3BB6F-EBB8-4631-A809-FF67ED4228F8}
+		{C4831CB7-F3B5-4FB9-B3D7-F2F238DAEEE6} = {E4C3BB6F-EBB8-4631-A809-FF67ED4228F8}
 	EndGlobalSection
 EndGlobal
