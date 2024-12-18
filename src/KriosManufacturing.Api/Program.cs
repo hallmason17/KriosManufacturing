@@ -22,6 +22,8 @@ var builder = WebApplication.CreateBuilder(args);
         .AddScoped<IItemRepository, ItemRepository>()
         .AddScoped<IInventoryRecordRepository, InventoryRecordRepository>()
         .AddScoped<ILocationRepository, LocationRepository>()
+        .AddScoped<ILotRepository, LotRepository>()
+        .AddScoped<LotService>()
         .AddScoped<LocationService>()
         .AddScoped<InventoryRecordService>()
         .AddScoped<ItemService>()

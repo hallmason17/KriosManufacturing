@@ -1,0 +1,80 @@
+@page "/inventoryRecords/new"
+@using System.ComponentModel.DataAnnotations
+@using KriosManufacturing.Core.Models
+@using System.Globalization
+@inject HttpClient Http
+@inject NavigationManager navigationManager
+@inject ILogger<New> logger
+
+<PageTitle>InventoryRecord</PageTitle>
+
+<h1>New InventoryRecord</h1>
+<MudButton Class="my-5" Href="/inventoryRecords" Variant="Variant.Filled" Color="Color.Tertiary">
+    <MudIcon Size="Size.Small" Icon="@Icons.Material.Outlined.ArrowBack" />
+    All inventoryRecords
+</MudButton>
+
+<EditForm Model="@_newForm" OnValidSubmit="Submit" FormCell="NewInventoryRecordForm">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <MudItem xs="12" sm="7">
+        <MudCard>
+            <MudCardContent>
+                <MudText Typo="Typo.h6">Item</MudText>
+                <MudTextField Label="Sku" HelperText="Required. Must be an existing item." @bind-Value="_newForm.Sku"
+                    For="@(() => _newForm.Sku)" />
+
+                <MudText Typo="Typo.h6">Lot</MudText>
+                <MudTextField Label="Lot Number" HelperText="Required." @bind-Value="_newForm.LotNumber"
+                    For="@(() => _newForm.Sku)" />
+                <MudTextField Label="Lot Expiration Date" HelperText="Required. mm/dd/yyyy" @bind-Value="_newForm.LotExpirationDate" />
+
+                <MudTextField Label="Quantity" @bind-Value="_newForm.Quantity"
+                    For="@(() => _newForm.Quantity)" />
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary"
+                    Class="ml-auto">Submit</MudButton>
+            </MudCardActions>
+        </MudCard>
+    </MudItem>
+</EditForm>
+
+@code {
+    private NewInventoryRecordForm _newForm = new();
+
+    public class NewInventoryRecordForm
+    {
+        [Required] public string? Sku { get; set; }
+        [Required] public string? LotNumber { get; set; }
+        [Required] public string? LotExpirationDate { get; set; }
+        [Required] public int Quantity { get; set; }
+    }
+
+    public class NewInventoryRecordDto
+    {
+        [Required] public string? Sku { get; set; }
+        [Required] public string? LotNumber { get; set; }
+        [Required] public DateTime? LotExpirationDate { get; set; }
+        [Required] public int Quantity { get; set; }
+    }
+
+    private async Task Submit()
+    {
+        var expDate = DateTime.ParseExact(_newForm.LotExpirationDate!, "MM/dd/yyyy", CultureInfo.InvariantCulture);
+        var newInventoryRecordDto = new NewInventoryRecordDto()
+        {
+            Sku = _newForm.Sku,
+            LotNumber = _newForm.LotNumber,
+            LotExpirationDate = expDate,
+            Quantity = _newForm.Quantity,
+        };
+
+        var result = await Http.PostAsJsonAsync($"/api/v1/inventoryRecords", newInventoryRecordDto);
+        logger.LogInformation(result.ToString());
+        if (result.IsSuccessStatusCode)
+        {
+            navigationManager.NavigateTo("inventoryRecords");
+        }
+    }
+}    using System.Globalization;

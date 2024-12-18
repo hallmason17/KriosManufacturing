@@ -5,27 +5,32 @@
 <PageTitle>Locations</PageTitle>
 
 <div class="d-flex justify-space-between">
-<h1 class="my-5">All Locations</h1>
-<MudButton Class="my-5" Href="/locations/new" Variant="Variant.Filled" Color="Color.Tertiary">
-    <MudIcon Size="Size.Small" Icon="@Icons.Material.Outlined.Add" />
-    Add a Location
-</MudButton>
+    <h1 class="my-5">All Locations</h1>
+    <MudButton Class="my-5" Href="/locations/new" Variant="Variant.Filled" Color="Color.Tertiary">
+        <MudIcon Size="Size.Small" Icon="@Icons.Material.Outlined.Add" />
+        Add a Location
+    </MudButton>
 </div>
 
-@if (locations is null || !locations.Any())
+@if (locations is null)
 {
     <p>
     <em>Loading...</em>
 </p>
 }
+else if (!locations.Any())
+{
+    <p>No locations to display.</p>
+}
 else
 {
-    <MudTable Bordered="true" FixedHeader="true" Dense="true" ReadOnly="true" Items="locations" Hover="true" SortLabel="Sort By"
-    Elevation="3">
+    <MudTable Bordered="true" FixedHeader="true" Dense="true" ReadOnly="true" Items="locations" Hover="true"
+    SortLabel="Sort By" Elevation="3">
     <HeaderContent>
         <MudTh Style="width:100px"></MudTh>
         <MudTh>
-            <MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<Location, object>(x => x.Id)">Id
+            <MudTableSortLabel InitialDirection="SortDirection.Ascending"
+                SortBy="new Func<Location, object>(x => x.Id)">Id
             </MudTableSortLabel>
         </MudTh>
         <MudTh>

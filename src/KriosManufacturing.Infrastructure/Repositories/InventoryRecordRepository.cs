@@ -1,7 +1,6 @@
 namespace KriosManufacturing.Infrastructure.Repositories;
 
 using System.Collections.Generic;
-using System.Data.Entity;
 
 
 using KriosManufacturing.Core.Models;
@@ -9,9 +8,23 @@ using KriosManufacturing.Core.Models;
 using KriosManufacturing.Core.Repositories;
 
 using KriosManufacturing.Infrastructure.Data;
+
+using Microsoft.EntityFrameworkCore;
+
+
 public class InventoryRecordRepository(AppDbContext _dbContext) : Repository<InventoryRecord>(_dbContext), IInventoryRecordRepository 
 {
     protected AppDbContext dbContext = _dbContext;
+
+    public override async Task<IEnumerable<InventoryRecord>> GetAll(CancellationToken ctok)
+    {
+        return await dbContext.InventoryRecords
+            .AsNoTracking()
+            .Include(x => x.Item)
+            .Include(x => x.Lot)
+            .Include(x => x.Location)
+            .ToListAsync(ctok);
+    }
 
     public async Task<IEnumerable<InventoryRecord>> GetByItemAsync(long itemId, CancellationToken ctok)
     {

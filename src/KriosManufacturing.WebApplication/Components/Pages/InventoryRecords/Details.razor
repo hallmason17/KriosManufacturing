@@ -1,0 +1,46 @@
+@page "/inventoryRecords/{InventoryRecordId:int}"
+@using KriosManufacturing.Core.Models
+@inject HttpClient Http
+
+<PageTitle>InventoryRecord</PageTitle>
+
+
+@if (inventoryRecord == null)
+{
+    <h1>InventoryRecord @InventoryRecordId</h1>
+    <p>
+    <em>Loading...</em>
+</p>
+}
+else
+{
+        <MudButton Class="my-5" Href="/inventoryRecords" Variant="Variant.Filled" Color="Color.Tertiary">
+            <MudIcon Size="Size.Small" Icon="@Icons.Material.Outlined.ArrowBack" />
+            All inventory records
+        </MudButton>
+        <h1 class="mb-5">InventoryRecord @inventoryRecord.Id</h1>
+
+    <MudItem xs="12" sm="7">
+        <MudCard>
+            <MudCardContent>
+                <MudTextField ReadOnly="true" Label="Unit" @bind-Value="inventoryRecord.Id" />
+                <MudTextField ReadOnly="true" Label="Cell" Class="mt-3" @bind-Value="inventoryRecord.Quantity" />
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton Href="@($"/inventoryRecords/{inventoryRecord.Id}/edit")" Variant="Variant.Filled" Color="Color.Secondary"
+                    Class="ml-auto">Edit inventory record</MudButton>
+            </MudCardActions>
+        </MudCard>
+    </MudItem>
+}
+
+@code {
+    [Parameter] public int InventoryRecordId { get; set; }
+    private InventoryRecord? inventoryRecord;
+
+    protected override async Task OnInitializedAsync()
+    {
+        inventoryRecord = await Http.GetFromJsonAsync<InventoryRecord>($"/api/v1/inventoryRecords/{InventoryRecordId}");
+    }
+
+}

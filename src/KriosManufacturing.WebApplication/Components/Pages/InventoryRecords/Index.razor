@@ -1,0 +1,77 @@
+﻿@page "/inventoryRecords"
+@using KriosManufacturing.Core.Models
+@inject HttpClient Http
+
+<PageTitle>InventoryRecords</PageTitle>
+
+<div class="d-flex justify-space-between">
+    <h1 class="my-5">All InventoryRecords</h1>
+    <MudButton Class="my-5" Href="/inventoryRecords/new" Variant="Variant.Filled" Color="Color.Tertiary">
+        <MudIcon Size="Size.Small" Icon="@Icons.Material.Outlined.Add" />
+        Add an InventoryRecord
+    </MudButton>
+</div>
+
+@if (inventoryRecords is null)
+{
+    <p>
+    <em>Loading...</em>
+</p>
+}
+else if (!inventoryRecords.Any())
+{
+    <p>No inventoryRecords to display.</p>
+}
+else
+{
+    <MudTable Bordered="true" FixedHeader="true" Dense="true" ReadOnly="true" Items="inventoryRecords" Hover="true"
+    SortLabel="Sort By" Elevation="3">
+    <HeaderContent>
+        <MudTh Style="width:100px"></MudTh>
+        <MudTh>
+            <MudTableSortLabel InitialDirection="SortDirection.Ascending"
+                SortBy="new Func<InventoryRecord, object>(x => x.Id)">Id
+            </MudTableSortLabel>
+        </MudTh>
+        <MudTh>
+            <MudTableSortLabel SortBy="new Func<InventoryRecord, object>(x => x.Item!.Sku)">Sku</MudTableSortLabel>
+        </MudTh>
+        <MudTh>
+            <MudTableSortLabel SortBy="new Func<InventoryRecord, object>(x => x.Location!.Unit)">Unit</MudTableSortLabel>
+        </MudTh>
+        <MudTh>
+            <MudTableSortLabel SortBy="new Func<InventoryRecord, object>(x => x.Location!.Cell)">Cell</MudTableSortLabel>
+        </MudTh>
+        <MudTh>
+            <MudTableSortLabel SortBy="new Func<InventoryRecord, object>(x => x.Lot!.LotNumber)">Lot Number</MudTableSortLabel>
+        </MudTh>
+        <MudTh>
+            <MudTableSortLabel SortBy="new Func<InventoryRecord, object>(x => x.Quantity)">Quantity</MudTableSortLabel>
+        </MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd>
+            <MudIconButton title="Edit" Href="@($"/inventoryRecords/{@context.Id}/edit")" Size="Size.Small"
+                Icon="@Icons.Material.Filled.EditNote" aria-label="edit" />
+            <MudIconButton title="Details" Href="@($"/inventoryRecords/{@context.Id}")" Size="Size.Small"
+                Icon="@Icons.Material.Filled.Notes" aria-label="details" />
+        </MudTd>
+        <MudTd DataLabel="Id">@context.Id</MudTd>
+        <MudTd DataLabel="Unit">@context.Item!.Sku</MudTd>
+        <MudTd DataLabel="Unit">@context.Location!.Unit</MudTd>
+        <MudTd DataLabel="Unit">@context.Location!.Cell</MudTd>
+        <MudTd DataLabel="Unit">@context.Lot!.LotNumber</MudTd>
+        <MudTd DataLabel="Unit">@context.Quantity</MudTd>
+    </RowTemplate>
+</MudTable>
+}
+
+@code {
+    private IEnumerable<InventoryRecord>? inventoryRecords = new List<InventoryRecord>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        inventoryRecords = await Http.GetFromJsonAsync<List<InventoryRecord>?>("/api/v1/inventoryRecords");
+    }
+
+}

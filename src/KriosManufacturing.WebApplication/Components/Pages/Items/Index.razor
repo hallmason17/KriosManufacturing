@@ -12,11 +12,15 @@
 </MudButton>
 </div>
 
-@if (items is null || !items.Any())
+@if (items is null )
 {
     <p>
     <em>Loading...</em>
 </p>
+}
+else if (!items.Any())
+{
+    <p>No items to display.</p>
 }
 else
 {

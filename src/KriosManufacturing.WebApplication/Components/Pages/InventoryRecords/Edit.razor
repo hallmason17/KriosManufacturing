@@ -1,0 +1,78 @@
+@page "/inventoryRecords/{InventoryRecordId:int}/edit"
+@using KriosManufacturing.Core.Models
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+
+<PageTitle>InventoryRecord</PageTitle>
+
+
+@if (inventoryRecord is null)
+{
+    <h1>Edit InventoryRecord</h1>
+    <p>Loading...</p>
+}
+else
+{
+    <div class="d-flex justify-space-between">
+        <div>
+            <MudButton Class="my-5" Href="/inventoryRecords" Variant="Variant.Filled" Color="Color.Tertiary">
+                <MudIcon Size="Size.Small" Icon="@Icons.Material.Outlined.ArrowBack"/>
+                All inventoryRecords
+                </MudButton>
+            <h1 class="mb-5">Edit InventoryRecord !inventoryRecord.Id</h1>
+        </div>
+
+        <div>
+            <MudButton Class="my-5" OnClick="DeleteInventoryRecord" Variant="Variant.Filled" Color="Color.Secondary">Delete inventoryRecord
+            </MudButton>
+        </div>
+    </div>
+
+    <EditForm Model="@inventoryRecord" OnValidSubmit="Submit" FormCell="NewInventoryRecordForm">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <MudItem xs="12" sm="7">
+            <MudCard>
+                <MudCardContent>
+                    <MudTextField Disabled="true" Label="Unit" HelperText="Unit cannot be changed." @bind-Value="inventoryRecord.Id"
+                        For="@(() => inventoryRecord.Id)" />
+                    <MudTextField Disabled="true" Label="Cell" Class="mt-3" HelperText="Cell cannot be changed."
+                        @bind-Value="inventoryRecord.Quantity" />
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary"
+                        Class="ml-auto">Submit</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+    </EditForm>
+}
+
+@code {
+    [Parameter] public int InventoryRecordId { get; set; }
+    private InventoryRecord? inventoryRecord;
+
+    private async Task Submit()
+    {
+        var result = await Http.PutAsJsonAsync($"/api/v1/inventoryRecords/{InventoryRecordId}", inventoryRecord!);
+        if (result.IsSuccessStatusCode)
+        {
+            NavigationManager.NavigateTo($"/inventoryRecords/{InventoryRecordId}");
+        }
+    }
+
+    private async Task DeleteInventoryRecord()
+    {
+        var result = await Http.DeleteAsync($"/api/v1/inventoryRecords/{InventoryRecordId}");
+        if (result.IsSuccessStatusCode)
+        {
+            NavigationManager.NavigateTo($"/inventoryRecords");
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        inventoryRecord = await Http.GetFromJsonAsync<InventoryRecord>($"/api/v1/inventoryRecords/{InventoryRecordId}");
+    }
+
+}

@@ -12,14 +12,14 @@ where T : class
 {
     private readonly DbSet<T> _dbSet = dbContext.Set<T>();
 
-    public async Task<T?> CreateAsync(T item, CancellationToken ctok)
+    public virtual async Task<T?> CreateAsync(T item, CancellationToken ctok)
     {
-        await dbContext.AddAsync(item, ctok).ConfigureAwait(false);
+        await _dbSet.AddAsync(item, ctok).ConfigureAwait(false);
         var result = await dbContext.SaveChangesAsync(ctok).ConfigureAwait(false);
         return result > 0 ? item : default;
     }
 
-    public async Task<bool> DeleteByIdAsync(long itemId, CancellationToken ctok)
+    public virtual async Task<bool> DeleteByIdAsync(long itemId, CancellationToken ctok)
     {
         var item = await dbContext.FindAsync<T>(itemId);
         if (item == null)
@@ -37,17 +37,17 @@ where T : class
         return result > 0;
     }
 
-    public async Task<IEnumerable<T>> GetAll(CancellationToken ctok)
+    public virtual async Task<IEnumerable<T>> GetAll(CancellationToken ctok)
     {
         return await _dbSet.ToListAsync(ctok).ConfigureAwait(false);
     }
 
-    public async Task<T?> GetById(long itemId, CancellationToken ctok)
+    public virtual async Task<T?> GetById(long itemId, CancellationToken ctok)
     {
         return await _dbSet.FindAsync(itemId, ctok).ConfigureAwait(false);
     }
 
-    public async Task<T?> UpdateAsync(T item, CancellationToken ctok)
+    public virtual async Task<T?> UpdateAsync(T item, CancellationToken ctok)
     {
         _dbSet.Update(item);
         var result = await dbContext.SaveChangesAsync(ctok).ConfigureAwait(false);

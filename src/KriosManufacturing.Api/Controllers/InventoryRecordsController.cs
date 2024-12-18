@@ -1,5 +1,8 @@
 namespace KriosManufacturing.Api.Controllers;
 
+using System.Diagnostics;
+
+
 using KriosManufacturing.Api.Dtos.Items;
 using KriosManufacturing.Core.Models;
 using KriosManufacturing.Core.Services;
@@ -8,9 +11,13 @@ using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
 [Route("/api/v1/[controller]")]
-public class InventoryRecordsController(InventoryRecordService inventoryRecordService) : ControllerBase
+public class InventoryRecordsController(ILogger<InventoryRecordsController> _logger, InventoryRecordService inventoryRecordService, ItemService itemService, LocationService locationService, LotService lotService) : ControllerBase
 {
     private readonly InventoryRecordService _inventoryRecordService = inventoryRecordService;
+    private readonly ItemService _itemService = itemService;
+    private readonly LocationService _locationService = locationService;
+
+    private readonly LotService _lotService = lotService;
     [HttpGet]
     public async Task<IActionResult> GetInventoryRecords(CancellationToken ctok)
     {
@@ -32,13 +39,51 @@ public class InventoryRecordsController(InventoryRecordService inventoryRecordSe
     [HttpPost]
     public async Task<IActionResult> CreateInventoryRecord(CreateInventoryRecordRequest inventoryRecordRequest, CancellationToken ctok)
     {
-        var newRecord = await _inventoryRecordService.CreateAsync(inventoryRecordRequest.ToInventoryRecord(), ctok);
+        var sw = new Stopwatch();
+        sw.Start();
+        if (inventoryRecordRequest.Quantity < 1)
+        {
+            return BadRequest("Quantity must be greater than 0.");
+        }
+
+        var item = await _itemService.GetBySkuAsync(inventoryRecordRequest.Sku, ctok);
+        if (item is null)
+        {
+            return NotFound("Item not found.");
+        }
+
+        // TODO: Get default receive location
+        var location = await _locationService.GetByIdAsync(5, ctok);
+        if (location is null)
+        {
+            return NotFound("Location not found.");
+        }
+
+        var lot = await _lotService.GetByLotNumberAsync(inventoryRecordRequest.LotNumber, ctok);
+        lot ??= new Lot()
+            {
+                ItemId = item.Id,
+                LotNumber = inventoryRecordRequest.LotNumber,
+                ExpirationDate = DateOnly.FromDateTime(inventoryRecordRequest.LotExpirationDate),
+            };
+
+        var inventoryRecord = new InventoryRecord()
+        {
+            Id = inventoryRecordRequest.Id,
+            ItemId = item.Id,
+            LocationId = location.Id,
+            LotId = lot.Id,
+            Quantity = inventoryRecordRequest.Quantity,
+        };
+
+        var newRecord = await _inventoryRecordService.CreateAsync(inventoryRecord, ctok);
+        _logger.LogInformation("CreateInventoryRecords took {ElapsedMilliseconds}ms", sw.ElapsedMilliseconds);
         return newRecord == null ?
             Problem(statusCode: StatusCodes.Status400BadRequest, detail: $"Inventory record not created")
             : CreatedAtAction(nameof(GetInventoryRecord), new { InventoryRecordId = newRecord.Id }, InventoryRecordResponse.FromInventoryRecord(newRecord));
     }
 
-    [HttpPut("{itemId}")]
+    [HttpPut("{inventoryRecordId}")]
     public async Task<IActionResult> UpdateInventoryRecord(long inventoryRecordId, InventoryRecord inventoryRecord, CancellationToken ctok)
     {
         if (inventoryRecordId != inventoryRecord.Id)
@@ -67,19 +112,8 @@ public class InventoryRecordsController(InventoryRecordService inventoryRecordSe
     }
 }
 
-public record CreateInventoryRecordRequest(long Id, long ItemId, long LocationId, long LotId, int Quantity)
+public record CreateInventoryRecordRequest(long Id, string Sku, string LotNumber, DateTime LotExpirationDate, int Quantity)
 {
-    public InventoryRecord ToInventoryRecord()
-    {
-        return new InventoryRecord()
-        {
-            Id = Id,
-            ItemId = ItemId,
-            LocationId = LocationId,
-            LotId = LotId,
-            Quantity = Quantity,
-        };
-    }
 }
 
 public record InventoryRecordResponse(long Id, long ItemId, long LocationId, long LotId, int Quantity)
