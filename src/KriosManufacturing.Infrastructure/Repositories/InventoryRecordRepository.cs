@@ -12,7 +12,7 @@ using KriosManufacturing.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
 
-public class InventoryRecordRepository(AppDbContext _dbContext) : Repository<InventoryRecord>(_dbContext), IInventoryRecordRepository 
+public class InventoryRecordRepository(AppDbContext _dbContext) : Repository<InventoryRecord>(_dbContext), IInventoryRecordRepository
 {
     protected AppDbContext dbContext = _dbContext;
 
@@ -33,11 +33,11 @@ public class InventoryRecordRepository(AppDbContext _dbContext) : Repository<Inv
 
     public async Task<IEnumerable<InventoryRecord>> GetByLocationAsync(long locationId, CancellationToken ctok)
     {
-        return await dbContext.InventoryRecords.Where(it => it.ItemId == locationId).ToListAsync(ctok);
+        return await dbContext.InventoryRecords.Where(it => it.LocationId == locationId).ToListAsync(ctok);
     }
 
     public async Task<IEnumerable<InventoryRecord>> GetByLotAsync(long lotId, CancellationToken ctok)
     {
-        return await dbContext.InventoryRecords.Where(it => it.ItemId == lotId).ToListAsync(ctok);
+        return await dbContext.InventoryRecords.Where(it => it.LotId == lotId).ToListAsync(ctok);
     }
 }
