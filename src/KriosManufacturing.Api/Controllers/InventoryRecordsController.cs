@@ -3,7 +3,6 @@ namespace KriosManufacturing.Api.Controllers;
 using System.Diagnostics;
 
 
-using KriosManufacturing.Api.Dtos.Items;
 using KriosManufacturing.Core.Models;
 using KriosManufacturing.Core.Services;
 
@@ -11,7 +10,12 @@ using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
 [Route("/api/v1/[controller]")]
-public class InventoryRecordsController(ILogger<InventoryRecordsController> _logger, InventoryRecordService inventoryRecordService, ItemService itemService, LocationService locationService, LotService lotService) : ControllerBase
+public class InventoryRecordsController(
+        ILogger<InventoryRecordsController> _logger,
+        InventoryRecordService inventoryRecordService,
+        ItemService itemService,
+        LocationService locationService,
+        LotService lotService) : ControllerBase
 {
     private readonly InventoryRecordService _inventoryRecordService = inventoryRecordService;
     private readonly ItemService _itemService = itemService;
@@ -26,7 +30,9 @@ public class InventoryRecordsController(ILogger<InventoryRecordsController> _log
     }
 
     [HttpGet("{inventoryRecordId}")]
-    public async Task<IActionResult> GetInventoryRecord(long inventoryRecordId, CancellationToken ctok)
+    public async Task<IActionResult> GetInventoryRecord(
+            long inventoryRecordId,
+            CancellationToken ctok)
     {
         var inventoryRecord = await _inventoryRecordService.GetByIdAsync(inventoryRecordId, ctok);
         return inventoryRecord switch
@@ -37,7 +43,9 @@ public class InventoryRecordsController(ILogger<InventoryRecordsController> _log
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateInventoryRecord(CreateInventoryRecordRequest inventoryRecordRequest, CancellationToken ctok)
+    public async Task<IActionResult> CreateInventoryRecord(
+            CreateInventoryRecordRequest inventoryRecordRequest,
+            CancellationToken ctok)
     {
         var sw = new Stopwatch();
         sw.Start();
@@ -61,11 +69,11 @@ public class InventoryRecordsController(ILogger<InventoryRecordsController> _log
 
         var lot = await _lotService.GetByLotNumberAsync(inventoryRecordRequest.LotNumber, ctok);
         lot ??= new Lot()
-            {
-                ItemId = item.Id,
-                LotNumber = inventoryRecordRequest.LotNumber,
-                ExpirationDate = DateOnly.FromDateTime(inventoryRecordRequest.LotExpirationDate),
-            };
+        {
+            ItemId = item.Id,
+            LotNumber = inventoryRecordRequest.LotNumber,
+            ExpirationDate = DateOnly.FromDateTime(inventoryRecordRequest.LotExpirationDate),
+        };
 
         var inventoryRecord = new InventoryRecord()
         {
@@ -79,12 +87,18 @@ public class InventoryRecordsController(ILogger<InventoryRecordsController> _log
         var newRecord = await _inventoryRecordService.CreateAsync(inventoryRecord, ctok);
         _logger.LogInformation("CreateInventoryRecords took {ElapsedMilliseconds}ms", sw.ElapsedMilliseconds);
         return newRecord == null ?
-            Problem(statusCode: StatusCodes.Status400BadRequest, detail: $"Inventory record not created")
-            : CreatedAtAction(nameof(GetInventoryRecord), new { InventoryRecordId = newRecord.Id }, InventoryRecordResponse.FromInventoryRecord(newRecord));
+            Problem(statusCode: StatusCodes.Status400BadRequest,
+                    detail: $"Inventory record not created")
+            : CreatedAtAction(nameof(GetInventoryRecord),
+                    new { InventoryRecordId = newRecord.Id },
+                    InventoryRecordResponse.FromInventoryRecord(newRecord));
     }
 
     [HttpPut("{inventoryRecordId}")]
-    public async Task<IActionResult> UpdateInventoryRecord(long inventoryRecordId, InventoryRecord inventoryRecord, CancellationToken ctok)
+    public async Task<IActionResult> UpdateInventoryRecord(
+            long inventoryRecordId,
+            InventoryRecord inventoryRecord,
+            CancellationToken ctok)
     {
         if (inventoryRecordId != inventoryRecord.Id)
         {
@@ -112,11 +126,21 @@ public class InventoryRecordsController(ILogger<InventoryRecordsController> _log
     }
 }
 
-public record CreateInventoryRecordRequest(long Id, string Sku, string LotNumber, DateTime LotExpirationDate, int Quantity)
+public record CreateInventoryRecordRequest(
+        long Id,
+        string Sku,
+        string LotNumber,
+        DateTime LotExpirationDate,
+        int Quantity)
 {
 }
 
-public record InventoryRecordResponse(long Id, long ItemId, long LocationId, long LotId, int Quantity)
+public record InventoryRecordResponse(
+        long Id,
+        long ItemId,
+        long LocationId,
+        long LotId,
+        int Quantity)
 {
     public static InventoryRecordResponse FromInventoryRecord(InventoryRecord inventoryRecord)
     {

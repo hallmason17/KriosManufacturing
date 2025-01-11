@@ -1,0 +1,7 @@
+<Project>
+  <PropertyGroup>
+    <StartupCommand>npm start</StartupCommand>
+    <ShouldRunBuildScript>false</ShouldRunBuildScript>
+  </PropertyGroup>
+</Project>
+
