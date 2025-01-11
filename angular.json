@@ -31,9 +31,13 @@
               }
             ],
             "styles": [
+              "node_modules/bootstrap/scss/bootstrap.scss",
+              "node_modules/bootstrap-icons/scss/bootstrap-icons.scss",
               "src/KriosManufacturing.WebApp/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+            ]
           },
           "configurations": {
             "production": {

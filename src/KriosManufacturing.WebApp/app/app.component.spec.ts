@@ -17,7 +17,7 @@ describe('AppComponent', () => {
   it(`should have the 'KriosManufacturing.WebApp' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('KriosManufacturing.WebApp');
+    expect(app.title).toEqual('KriosManufacturingWebApp');
   });
 
   it('should render title', () => {

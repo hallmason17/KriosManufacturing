@@ -1,0 +1,28 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  background-color: rgb(36, 36, 58);
+  color: whitesmoke;
+  margin: 0px;
+}
+
+nav a:hover {
+  background-color: darkgray;
+}
+
+.button {
+  display: inline-block;
+  cursor: pointer;
+  color: whitesmoke;
+  font-family: Arial, sans-serif;
+  font-size: medium;
+  padding: 24px;
+  text-decoration: none;
+}
+.activeButton {
+  box-shadow: inset 0 1px 0 0 #dcecfb;
+  background: black linear-gradient(to bottom, #bddbfa 5%, #80b5ea 100%);
+  border: 1px solid #84bbf3;
+  color: blue;
+  text-shadow: 0 1px 0 #528ecc;
+}
