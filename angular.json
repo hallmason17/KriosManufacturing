@@ -21,7 +21,8 @@
             "index": "src/KriosManufacturing.WebApp/index.html",
             "browser": "src/KriosManufacturing.WebApp/main.ts",
             "polyfills": [
-              "zone.js"
+              "zone.js",
+              "@angular/localize/init"
             ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
@@ -31,8 +32,9 @@
               }
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/bootstrap/scss/bootstrap.scss",
-              "node_modules/bootstrap-icons/scss/bootstrap-icons.scss",
+              "node_modules/bootstrap-icons/font/bootstrap-icons.scss",
               "src/KriosManufacturing.WebApp/styles.css"
             ],
             "scripts": [
@@ -83,7 +85,8 @@
           "options": {
             "polyfills": [
               "zone.js",
-              "zone.js/testing"
+              "zone.js/testing",
+              "@angular/localize/init"
             ],
             "tsConfig": "tsconfig.spec.json",
             "assets": [
