@@ -1,46 +1,33 @@
-.icon-bar {
-  display: flex;
-  justify-content: space-between;
-  background-color: rgb(36, 36, 58);
-  color: whitesmoke;
-  margin: 0px;
-  height: 100%;
-  width: 100px;
-}
-
-nav a:hover {
-  background-color: darkgray;
-}
-
-.button {
-  display: inline-block;
-  cursor: pointer;
-  color: whitesmoke;
-  font-family: Arial, sans-serif;
-  font-size: medium;
-  padding: 24px;
-  text-decoration: none;
-}
-.activeButton {
-  box-shadow: inset 0 1px 0 0 #dcecfb;
-  background: black linear-gradient(to bottom, #bddbfa 5%, #80b5ea 100%);
-  border: 1px solid #84bbf3;
-  color: blue;
-  text-shadow: 0 1px 0 #528ecc;
+nav {
+  width: 100%;
+  height: 4rem;
+  margin: 0%;
+  padding: 0%;
 }
 
 a {
-  padding: 1%;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  margin: 0%;
+  padding: 0%;
 }
 
-@media only screen and (max-width: 600px) {
-  .icon-bar {
-    display: flex;
-    justify-content: space-between;
-    background-color: rgb(36, 36, 58);
-    color: whitesmoke;
-    margin: 0px;
-    height: 100%;
-    width: 10px;
-  }
+span {
+  margin-inline: 10px;
+  margin-top: 8px;
+  font-size: x-large;
+}
+
+.icon {
+  width: auto;
+  padding: 1rem;
+  margin: 0.2rem;
+  height: 100%;
+  vertical-align: middle;
+  border-radius: 50%;
+}
+
+.icon:hover {
+  background-color: gray;
 }
