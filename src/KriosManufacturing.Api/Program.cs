@@ -36,7 +36,7 @@ var builder = WebApplication.CreateBuilder(args);
                 name: myAllowSpecificOrigins,
                 policy =>
                 {
-                    _ = policy.WithOrigins("http://localhost").AllowAnyMethod().AllowAnyHeader();
+                    policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
                 });
         })
         .AddControllers()
