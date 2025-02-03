@@ -6,11 +6,10 @@ import { NavBarComponent } from '../shared/nav-bar/nav-bar.component';
 
 
 @Component({
-  selector: 'app-root',
-  imports: [RouterOutlet, MatIconModule, AppBarComponent, NavBarComponent],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
-  standalone: true
+    selector: 'app-root',
+    imports: [RouterOutlet, MatIconModule, AppBarComponent, NavBarComponent],
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.scss'
 })
 export class AppComponent {
   title = 'KriosManufacturing.WebApp';
