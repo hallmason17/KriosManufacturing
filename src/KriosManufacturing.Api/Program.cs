@@ -1,3 +1,4 @@
+#pragma warning disable SA1200 // Using directives should be placed correctly
 using System.Text.Json.Serialization;
 
 using KriosManufacturing.Core.Repositories;
@@ -9,6 +10,7 @@ using KriosManufacturing.ServiceDefaults;
 using Microsoft.EntityFrameworkCore;
 
 using Scalar.AspNetCore;
+#pragma warning restore SA1200 // Using directives should be placed correctly
 
 var myAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
@@ -38,7 +40,8 @@ var builder = WebApplication.CreateBuilder(args);
                 });
         })
         .AddControllers()
-        .AddJsonOptions(opts => {
+        .AddJsonOptions(opts =>
+        {
             opts.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
             opts.JsonSerializerOptions.WriteIndented = true;
         });

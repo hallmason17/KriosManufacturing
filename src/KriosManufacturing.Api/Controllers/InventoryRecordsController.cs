@@ -2,7 +2,6 @@ namespace KriosManufacturing.Api.Controllers;
 
 using System.Diagnostics;
 
-
 using KriosManufacturing.Core.Models;
 using KriosManufacturing.Core.Services;
 
@@ -87,11 +86,13 @@ public class InventoryRecordsController(
         var newRecord = await _inventoryRecordService.CreateAsync(inventoryRecord, ctok);
         _logger.LogInformation("CreateInventoryRecords took {ElapsedMilliseconds}ms", sw.ElapsedMilliseconds);
         return newRecord == null ?
-            Problem(statusCode: StatusCodes.Status400BadRequest,
-                    detail: $"Inventory record not created")
-            : CreatedAtAction(nameof(GetInventoryRecord),
-                    new { InventoryRecordId = newRecord.Id },
-                    InventoryRecordResponse.FromInventoryRecord(newRecord));
+            Problem(
+                statusCode: StatusCodes.Status400BadRequest,
+                detail: $"Inventory record not created")
+            : CreatedAtAction(
+                nameof(GetInventoryRecord),
+                new { InventoryRecordId = newRecord.Id },
+                InventoryRecordResponse.FromInventoryRecord(newRecord));
     }
 
     [HttpPut("{inventoryRecordId}")]
