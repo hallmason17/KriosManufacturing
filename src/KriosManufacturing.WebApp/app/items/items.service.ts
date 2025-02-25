@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable, Signal } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Item } from '../models/item.type';
 import { Observable } from 'rxjs';
 
@@ -12,11 +12,11 @@ export class ItemsService {
     itemsUrl = this.apiUrl + '/api/v1/items'
 
 
-    getAll(): Observable<Array<Item>> {
-        return this.httpClient.get<Array<Item>>(this.itemsUrl)
+    getAll(): Observable<Item[]> {
+        return this.httpClient.get<Item[]>(this.itemsUrl)
     }
 
-    getById(id: Number): Observable<Item> {
+    getById(id: number): Observable<Item> {
         return this.httpClient.get<Item>(this.itemsUrl + `/${id}`);
     }
 }

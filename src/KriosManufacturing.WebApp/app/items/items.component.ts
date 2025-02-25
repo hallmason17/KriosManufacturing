@@ -12,10 +12,10 @@ import { catchError } from 'rxjs';
 })
 export class ItemsComponent implements OnInit {
     itemService: ItemsService = inject(ItemsService);
-    items = signal<Array<Item>>([]);
-    loading: boolean = true;
-    tableHeaders: Array<string> = ['id', 'sku', 'name', 'description'];
-    sortedAsc: boolean = true;
+    items = signal<Item[]>([]);
+    loading = true;
+    tableHeaders: string[] = ['id', 'sku', 'name', 'description'];
+    sortedAsc = true;
 
     ngOnInit(): void {
         this.itemService
@@ -28,6 +28,7 @@ export class ItemsComponent implements OnInit {
             )
             .subscribe((items) => {
                 this.items.set(items);
+                this.loading = false;
             });
     }
 }
