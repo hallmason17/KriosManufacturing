@@ -28,7 +28,6 @@ export class ItemsComponent implements OnInit {
             )
             .subscribe((items) => {
                 this.items.set(items);
-                console.log(this.items());
             });
     }
 }
