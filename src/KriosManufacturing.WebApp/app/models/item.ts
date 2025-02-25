@@ -1,8 +1,8 @@
 export type Item = {
-    id: Number,
-    sku: String,
-    name: String,
-    description: String | null,
-    inventoryRecords: [],
-    lots: [],
-}
+  id: number;
+  sku: String;
+  name: String;
+  description: String | null;
+  inventoryRecords: [];
+  lots: [];
+};

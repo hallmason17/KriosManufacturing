@@ -3,7 +3,6 @@ namespace KriosManufacturing.Core.Repositories;
 public interface IRepository<T>
 where T : class
 {
-
     Task<IEnumerable<T>> GetAll(CancellationToken ctok);
 
     Task<T?> GetById(long id, CancellationToken ctok);

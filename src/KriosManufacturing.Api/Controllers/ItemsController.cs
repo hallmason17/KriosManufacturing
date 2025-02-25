@@ -15,7 +15,7 @@ public class ItemsController(ItemService itemService) : ControllerBase
     public async Task<IActionResult> GetItems(CancellationToken ctok)
     {
         var items = await _itemService.GetAllAsync(ctok);
-        return Ok(items);
+        return Ok(items.OrderBy(x => x.Id));
     }
 
     [HttpGet("{itemId}")]

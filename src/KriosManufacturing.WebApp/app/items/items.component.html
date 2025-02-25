@@ -1,7 +1,26 @@
-<p>items works!</p>
 
-<ol>
+<h2 class="text-center">Items</h2>
+<table class="table table-sm table-striped table-bordered table-hover">
+  <thead>
+    <tr>
+      @for(header of tableHeaders; track $index){
+        <th scope="col" (click)="sort(header)">
+        {{header}}
+        </th>
+      }
+    </tr>
+  </thead>
+  <tbody>
     @for(item of items(); track item.id) {
-    <li>{{item.name }} - {{ item.description }}</li>
+    <tr>
+      <th scope="row">
+            {{item.id}}
+      </th>
+        <td>{{item.sku}}</td>
+        <td>{{item.name}}</td>
+        <td>{{item.description}}</td>
+    </tr>
     }
-</ol>
+  </tbody>
+</table>
+
