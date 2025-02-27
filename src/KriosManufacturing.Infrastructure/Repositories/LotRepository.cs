@@ -1,9 +1,9 @@
 namespace KriosManufacturing.Infrastructure.Repositories;
 
-using KriosManufacturing.Core.Models;
+using Core.Models;
 using KriosManufacturing.Core.Repositories;
 
-using KriosManufacturing.Infrastructure.Data;
+using Data;
 
 using Microsoft.EntityFrameworkCore;
 

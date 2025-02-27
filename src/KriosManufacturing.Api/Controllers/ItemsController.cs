@@ -1,8 +1,8 @@
 namespace KriosManufacturing.Api.Controllers;
 
-using KriosManufacturing.Api.Dtos.Items;
-using KriosManufacturing.Core.Models;
-using KriosManufacturing.Core.Services;
+using Dtos.Items;
+using Core.Models;
+using Core.Services;
 
 using Microsoft.AspNetCore.Mvc;
 

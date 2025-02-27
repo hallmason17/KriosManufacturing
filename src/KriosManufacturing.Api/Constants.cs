@@ -1,7 +1,6 @@
-﻿namespace KriosManufacturing.Api
+﻿namespace KriosManufacturing.Api;
+
+public static partial class Constants
 {
-    public static partial class Constants
-    {
-        public const string DefaultReceivingLocation = "RECV";
-    }
+    public const string DefaultReceivingLocation = "RECV";
 }

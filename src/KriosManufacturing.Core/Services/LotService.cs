@@ -4,12 +4,10 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-using KriosManufacturing.Core.Models;
-using KriosManufacturing.Core.Repositories;
+using Models;
+using Repositories;
 
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-
 
 public class LotService(ILogger<LotService> logger, ILotRepository lotRepository)
 {

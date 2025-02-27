@@ -1,7 +1,7 @@
 namespace KriosManufacturing.Core.Services;
 
-using KriosManufacturing.Core.Models;
-using KriosManufacturing.Core.Repositories;
+using Models;
+using Repositories;
 
 public class InventoryRecordService(IInventoryRecordRepository inventoryRecordRepository)
 {
@@ -42,6 +42,7 @@ public class InventoryRecordService(IInventoryRecordRepository inventoryRecordRe
         */
         return await inventoryRecordRepository.UpdateAsync(inventoryRecord, ctok);
     }
+
     public async Task<IEnumerable<InventoryRecord>> GetByItemAsync(long itemId, CancellationToken ctok)
     {
         return await inventoryRecordRepository.GetByItemAsync(itemId, ctok).ConfigureAwait(false);

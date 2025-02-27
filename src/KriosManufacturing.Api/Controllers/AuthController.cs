@@ -1,11 +1,6 @@
-namespace KriosManufacturing.Api;
+namespace KriosManufacturing.Api.Controllers;
 
-using System.Data.Entity.Infrastructure;
-using System.Net;
-using System.Threading.Tasks;
-
-using KriosManufacturing.Core.Services;
-
+using Core.Services;
 using Microsoft.AspNetCore.Mvc;
 
 [Route("api/v1/[controller]")]
@@ -22,6 +17,7 @@ public class AuthController(AuthService authService) : ControllerBase
     {
         var cookieOpts = new CookieOptions()
         {
+            SameSite = SameSiteMode.Strict,
             Secure = true,
             HttpOnly = true,
             Expires = DateTime.UtcNow.AddMinutes(20),

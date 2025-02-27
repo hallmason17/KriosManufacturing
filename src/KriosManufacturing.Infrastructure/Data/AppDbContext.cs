@@ -1,6 +1,6 @@
 namespace KriosManufacturing.Infrastructure.Data;
 
-using KriosManufacturing.Core.Models;
+using Core.Models;
 
 using Microsoft.EntityFrameworkCore;
 
@@ -46,32 +46,29 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     {
         modelBuilder.Entity<Lot>(lot =>
         {
-            lot.HasKey(lot => lot.Id);
-            lot.HasIndex(lot => lot.LotNumber)
+            lot.HasKey(l => l.Id);
+            lot.HasIndex(l => l.LotNumber)
                 .IsUnique();
         });
 
         modelBuilder.Entity<Location>(location =>
         {
-            location.HasKey(location => location.Id);
+            location.HasKey(loc => loc.Id);
             location.HasIndex(loc => new { loc.Unit, loc.Cell })
                 .IsUnique();
         });
 
         modelBuilder.Entity<Item>(item =>
         {
-            item.HasKey(item => item.Id);
-            item.HasIndex(item => item.Sku)
+            item.HasKey(it => it.Id);
+            item.HasIndex(it => it.Sku)
                 .IsUnique();
         });
 
-#pragma warning disable SA1009 // Closing parenthesis should be spaced correctly
-        modelBuilder.Entity<InventoryRecord>(ir =>
+        modelBuilder.Entity<InventoryRecord>(inventoryRecord =>
             {
-                ir.HasKey(ir => ir.Id);
-            }
-        );
-#pragma warning restore SA1009 // Closing parenthesis should be spaced correctly
+                inventoryRecord.HasKey(ir => ir.Id);
+            });
         modelBuilder.Entity<InventoryRecord>()
             .ToTable(t => t.HasCheckConstraint("CK_Quantity", "\"Quantity\" > 0"));
 

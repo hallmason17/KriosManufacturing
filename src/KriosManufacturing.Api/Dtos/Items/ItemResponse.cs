@@ -1,6 +1,6 @@
 namespace KriosManufacturing.Api.Dtos.Items;
 
-using KriosManufacturing.Core.Models;
+using Core.Models;
 
 public record ItemResponse(long Id, string Sku, string Name, string? Description)
 {

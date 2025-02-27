@@ -2,22 +2,21 @@ namespace KriosManufacturing.Infrastructure.Repositories;
 
 using System.Collections.Generic;
 
-
-using KriosManufacturing.Core.Models;
+using Core.Models;
 
 using KriosManufacturing.Core.Repositories;
 
-using KriosManufacturing.Infrastructure.Data;
+using Data;
 
 using Microsoft.EntityFrameworkCore;
 
-public class InventoryRecordRepository(AppDbContext _dbContext) : Repository<InventoryRecord>(_dbContext), IInventoryRecordRepository
+public class InventoryRecordRepository(AppDbContext dbContext) : Repository<InventoryRecord>(dbContext), IInventoryRecordRepository
 {
-    protected AppDbContext dbContext = _dbContext;
+    private readonly AppDbContext _dbContext = dbContext;
 
     public override async Task<IEnumerable<InventoryRecord>> GetAll(CancellationToken ctok)
     {
-        return await dbContext.InventoryRecords
+        return await _dbContext.InventoryRecords
             .AsNoTracking()
             .Include(x => x.Item)
             .Include(x => x.Lot)
@@ -27,16 +26,16 @@ public class InventoryRecordRepository(AppDbContext _dbContext) : Repository<Inv
 
     public async Task<IEnumerable<InventoryRecord>> GetByItemAsync(long itemId, CancellationToken ctok)
     {
-        return await dbContext.InventoryRecords.Where(it => it.ItemId == itemId).ToListAsync(ctok);
+        return await _dbContext.InventoryRecords.Where(it => it.ItemId == itemId).ToListAsync(ctok);
     }
 
     public async Task<IEnumerable<InventoryRecord>> GetByLocationAsync(long locationId, CancellationToken ctok)
     {
-        return await dbContext.InventoryRecords.Where(it => it.LocationId == locationId).ToListAsync(ctok);
+        return await _dbContext.InventoryRecords.Where(it => it.LocationId == locationId).ToListAsync(ctok);
     }
 
     public async Task<IEnumerable<InventoryRecord>> GetByLotAsync(long lotId, CancellationToken ctok)
     {
-        return await dbContext.InventoryRecords.Where(it => it.LotId == lotId).ToListAsync(ctok);
+        return await _dbContext.InventoryRecords.Where(it => it.LotId == lotId).ToListAsync(ctok);
     }
 }

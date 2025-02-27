@@ -5,5 +5,5 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-[assembly: SuppressMessage("StyleCop.CSharp.SpacingRules", "SA1009:Closing parenthesis should be spaced correctly", Justification = "<Pending>", Scope = "type", Target = "~T:KriosManufacturing.Infrastructure.Data.AppDbContext")]
-[assembly: SuppressMessage("StyleCop.CSharp.SpacingRules", "SA1009:Closing parenthesis should be spaced correctly", Justification = "<Pending>", Scope = "type", Target = "~T:KriosManufacturing.Infrastructure.Repositories.InventoryRecordRepository")]
+[assembly: SuppressMessage("StyleCop.CSharp.SpacingRules", "SA1009:Closing parenthesis should be spaced correctly", Justification = "sucks", Scope = "type", Target = "~T:KriosManufacturing.Infrastructure.Data.AppDbContext")]
+[assembly: SuppressMessage("StyleCop.CSharp.SpacingRules", "SA1009:Closing parenthesis should be spaced correctly", Justification = "sucks", Scope = "type", Target = "~T:KriosManufacturing.Infrastructure.Repositories.InventoryRecordRepository")]

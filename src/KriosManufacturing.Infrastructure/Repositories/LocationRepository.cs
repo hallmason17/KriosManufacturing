@@ -1,7 +1,7 @@
 namespace KriosManufacturing.Infrastructure.Repositories;
-using KriosManufacturing.Core.Models;
+using Core.Models;
 using KriosManufacturing.Core.Repositories;
-using KriosManufacturing.Infrastructure.Data;
+using Data;
 
 #pragma warning disable SA1009 // Closing parenthesis should be spaced correctly
 public class LocationRepository(AppDbContext _dbContext) : Repository<Location>(_dbContext), ILocationRepository

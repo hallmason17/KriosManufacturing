@@ -1,12 +1,12 @@
 ﻿namespace KriosManufacturing.Infrastructure.Repositories;
 
-using KriosManufacturing.Core.Models;
+using Core.Models;
 using KriosManufacturing.Core.Repositories;
 
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using System.Threading;
-using KriosManufacturing.Infrastructure.Data;
+using Data;
 
 #pragma warning disable SA1009 // Closing parenthesis should be spaced correctly
 public class ItemRepository(AppDbContext _dbContext) : Repository<Item>(_dbContext), IItemRepository

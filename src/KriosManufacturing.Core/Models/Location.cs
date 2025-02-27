@@ -1,7 +1,6 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace KriosManufacturing.Core.Models;
 
+using System.ComponentModel.DataAnnotations;
 public class Location
 {
     public long Id

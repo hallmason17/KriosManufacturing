@@ -2,15 +2,15 @@ namespace KriosManufacturing.Api.Controllers;
 
 using System.Diagnostics;
 
-using KriosManufacturing.Core.Models;
-using KriosManufacturing.Core.Services;
+using Core.Models;
+using Core.Services;
 
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
 [Route("/api/v1/[controller]")]
 public class InventoryRecordsController(
-        ILogger<InventoryRecordsController> _logger,
+        ILogger<InventoryRecordsController> logger,
         InventoryRecordService inventoryRecordService,
         ItemService itemService,
         LocationService locationService,
@@ -86,7 +86,7 @@ public class InventoryRecordsController(
         };
 
         var newRecord = await _inventoryRecordService.CreateAsync(inventoryRecord, ctok);
-        _logger.LogInformation("CreateInventoryRecords took {ElapsedMilliseconds}ms", sw.ElapsedMilliseconds);
+        logger.LogInformation("CreateInventoryRecords took {ElapsedMilliseconds}ms", sw.ElapsedMilliseconds);
         return newRecord == null ?
             Problem(
                 statusCode: StatusCodes.Status400BadRequest,

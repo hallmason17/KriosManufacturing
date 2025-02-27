@@ -1,13 +1,9 @@
 namespace KriosManufacturing.Core.Services;
 
-using KriosManufacturing.Core.Models;
+using Models;
 using BCrypt.Net;
 public class AuthService
 {
-    public AuthService()
-    {
-    }
-
     public Task<bool> AuthenticateAsync(string email, string password, CancellationToken ctok)
     {
         var account = new Account

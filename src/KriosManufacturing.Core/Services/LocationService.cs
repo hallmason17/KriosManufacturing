@@ -1,7 +1,7 @@
 namespace KriosManufacturing.Core.Services;
 
-using KriosManufacturing.Core.Models;
-using KriosManufacturing.Core.Repositories;
+using Models;
+using Repositories;
 
 using Microsoft.Extensions.Logging;
 

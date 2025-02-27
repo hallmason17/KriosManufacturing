@@ -5,7 +5,7 @@ using KriosManufacturing.Core.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using System.Threading.Tasks;
-using KriosManufacturing.Infrastructure.Data;
+using Data;
 
 #pragma warning disable SA1009 // Closing parenthesis should be spaced correctly
 public class Repository<T>(AppDbContext dbContext) : IRepository<T>

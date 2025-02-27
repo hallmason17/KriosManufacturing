@@ -10,12 +10,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="EntityFramework6.Npgsql" Version="6.4.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Npgsql" Version="9.0.2" />
-    <PackageReference Include="Npgsql.EntityFramework" Version="2.2.7" />
+    <PackageReference Include="Npgsql" Version="9.0.3" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.2" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

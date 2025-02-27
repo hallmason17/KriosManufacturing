@@ -1,7 +1,7 @@
 namespace KriosManufacturing.Core.Services;
 
-using KriosManufacturing.Core.Repositories;
-using KriosManufacturing.Core.Models;
+using Repositories;
+using Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -19,7 +19,8 @@ public class ItemService(ILogger<ItemService> logger, IItemRepository itemReposi
 
     public async Task<Item?> GetBySkuAsync(string sku, CancellationToken ctok)
     {
-        return await itemRepository.GetBySkuAsync(sku, ctok); 
+        logger.LogInformation("Hello world");
+        return await itemRepository.GetBySkuAsync(sku, ctok);
     }
 
     public async Task<Item?> CreateAsync(Item item, CancellationToken ctok)
