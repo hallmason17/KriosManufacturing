@@ -5,12 +5,16 @@ nav {
   padding: 0%;
 }
 
+li {
+  list-style-type: none;
+  cursor: pointer;
+}
+
 a {
-  display: flex;
-  height: 100%;
-  width: 100%;
-  margin: 0%;
-  padding: 0%;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  padding: 8px;
 }
 
 span {

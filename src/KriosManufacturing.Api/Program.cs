@@ -29,6 +29,7 @@ var builder = WebApplication.CreateBuilder(args);
         .AddScoped<LocationService>()
         .AddScoped<InventoryRecordService>()
         .AddScoped<ItemService>()
+        .AddScoped<AuthService>()
         .AddOpenApi()
         .AddCors(options =>
         {
@@ -57,7 +58,6 @@ var app = builder.Build();
         app.MapOpenApi();
         app.MapScalarApiReference(opts =>
         {
-            opts.WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient);
         });
     }
 

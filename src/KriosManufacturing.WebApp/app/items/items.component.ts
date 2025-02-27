@@ -3,6 +3,7 @@ import { Item } from '../models/item.type';
 import { ItemsService } from './items.service';
 import { MatTableModule } from '@angular/material/table';
 import { catchError } from 'rxjs';
+import { AuthService } from '../core/services/auth.service';
 
 @Component({
     selector: 'app-items',
@@ -12,23 +13,26 @@ import { catchError } from 'rxjs';
 })
 export class ItemsComponent implements OnInit {
     itemService: ItemsService = inject(ItemsService);
+    authService: AuthService = inject(AuthService);
     items = signal<Item[]>([]);
     loading = true;
     tableHeaders: string[] = ['id', 'sku', 'name', 'description'];
     sortedAsc = true;
 
     ngOnInit(): void {
-        this.itemService
-            .getAll()
-            .pipe(
-                catchError((err) => {
-                    console.log(err);
-                    throw err;
-                }),
-            )
-            .subscribe((items) => {
-                this.items.set(items);
-                this.loading = false;
-            });
+        if (this.authService.isLoggedIn()) {
+            this.itemService
+                .getAll()
+                .pipe(
+                    catchError((err) => {
+                        console.log(err);
+                        throw err;
+                    }),
+                )
+                .subscribe((items) => {
+                    this.items.set(items);
+                    this.loading = false;
+                });
+        }
     }
 }

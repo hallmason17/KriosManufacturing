@@ -11,7 +11,6 @@ using KriosManufacturing.Infrastructure.Data;
 
 using Microsoft.EntityFrameworkCore;
 
-
 public class InventoryRecordRepository(AppDbContext _dbContext) : Repository<InventoryRecord>(_dbContext), IInventoryRecordRepository
 {
     protected AppDbContext dbContext = _dbContext;

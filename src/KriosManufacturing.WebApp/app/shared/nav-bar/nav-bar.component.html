@@ -1,0 +1,28 @@
+<nav class="navbar navbar-light bg-light ">
+    <a class="navbar-brand" href="#">
+        <mat-icon class="icon">menu</mat-icon>
+        <span>Krios Manufacturing</span>
+    </a>
+    <ul>
+        @if(!this.authService.isLoggedIn())
+        {
+        <li>
+            <a class="" [routerLink]="['/login']" routerLinkActive="router-link-active">
+                Login
+            </a>
+        </li>
+        <li>
+            <a class="" [routerLink]="['/register']" routerLinkActive="router-link-active">
+                Register
+            </a>
+        </li>
+        }
+        @else {
+        <li>
+            <button class="" (click)="this.authService.logout()" (keydown)="this.authService.logout()">
+                Logout
+            </button>
+        </li>
+        }
+    </ul>
+</nav>

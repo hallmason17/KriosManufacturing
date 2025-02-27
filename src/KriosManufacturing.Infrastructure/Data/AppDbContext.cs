@@ -65,11 +65,13 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
                 .IsUnique();
         });
 
+#pragma warning disable SA1009 // Closing parenthesis should be spaced correctly
         modelBuilder.Entity<InventoryRecord>(ir =>
             {
                 ir.HasKey(ir => ir.Id);
             }
         );
+#pragma warning restore SA1009 // Closing parenthesis should be spaced correctly
         modelBuilder.Entity<InventoryRecord>()
             .ToTable(t => t.HasCheckConstraint("CK_Quantity", "\"Quantity\" > 0"));
 
