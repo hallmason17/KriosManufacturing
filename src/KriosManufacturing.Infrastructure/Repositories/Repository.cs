@@ -7,7 +7,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using KriosManufacturing.Infrastructure.Data;
 
+#pragma warning disable SA1009 // Closing parenthesis should be spaced correctly
 public class Repository<T>(AppDbContext dbContext) : IRepository<T>
+#pragma warning restore SA1009 // Closing parenthesis should be spaced correctly
 where T : class
 {
     private readonly DbSet<T> _dbSet = dbContext.Set<T>();
