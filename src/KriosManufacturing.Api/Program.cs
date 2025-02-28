@@ -7,6 +7,10 @@ using KriosManufacturing.Infrastructure.Data;
 using KriosManufacturing.Infrastructure.Repositories;
 using KriosManufacturing.ServiceDefaults;
 
+using Microsoft.AspNetCore.Authentication.BearerToken;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 using Scalar.AspNetCore;
@@ -21,6 +25,10 @@ var builder = WebApplication.CreateBuilder(args);
         {
             _ = opts.UseNpgsql("Server=localhost;Port=5432;Database=KriosManufacturing;Username=postgres;Password=Vince123");
         })
+        .AddDbContext<IdentityContext>(opts =>
+        {
+            _ = opts.UseNpgsql("Server=localhost;Port=5432;Database=KriosManufacturing;Username=postgres;Password=Vince123");
+        })
         .AddScoped<IItemRepository, ItemRepository>()
         .AddScoped<IInventoryRecordRepository, InventoryRecordRepository>()
         .AddScoped<ILocationRepository, LocationRepository>()
@@ -29,7 +37,6 @@ var builder = WebApplication.CreateBuilder(args);
         .AddScoped<LocationService>()
         .AddScoped<InventoryRecordService>()
         .AddScoped<ItemService>()
-        .AddScoped<AuthService>()
         .AddOpenApi()
         .AddCors(options =>
         {
@@ -47,6 +54,28 @@ var builder = WebApplication.CreateBuilder(args);
             opts.JsonSerializerOptions.WriteIndented = true;
         });
 
+    builder.Services
+    .AddAuthentication(opt =>
+    {
+        opt.DefaultScheme = IdentityConstants.BearerScheme;
+    })
+    .AddBearerToken(IdentityConstants.BearerScheme, opts =>
+    {
+        opts.BearerTokenExpiration = TimeSpan.FromMinutes(5);
+    });
+
+    var authPolicy = new AuthorizationPolicyBuilder(
+        IdentityConstants.BearerScheme)
+    .RequireAuthenticatedUser()
+    .Build();
+
+    builder.Services.AddAuthorizationBuilder()
+    .SetDefaultPolicy(authPolicy);
+
+    builder.Services.AddIdentityCore<IdentityUser>()
+    .AddEntityFrameworkStores<IdentityContext>()
+    .AddApiEndpoints();
+
     builder.AddServiceDefaults();
 }
 
@@ -61,7 +90,13 @@ var app = builder.Build();
         });
     }
 
+    app.MapIdentityApi<IdentityUser>();
+
     app.UseHttpsRedirection();
+
+    app.UseAuthentication();
+    app.UseAuthorization();
+
     app.MapControllers();
     app.UseCors(myAllowSpecificOrigins);
 

@@ -1,6 +1,8 @@
-<p>auth works!</p>
-
-<button (click)="login()">Login</button>
+<form [formGroup]="loginForm" (submit)="login()">
+    Email: <input id="email" type="email" formControlName="email">
+    Password: <input id="password" type="password" formControlName="password">
+    <button type="submit">Submit</button>
+</form>
 <div>
     <button (click)="logout()">Logout</button>
 </div>

@@ -14,9 +14,7 @@ public class InventoryRecordsController(
         InventoryRecordService inventoryRecordService,
         ItemService itemService,
         LocationService locationService,
-#pragma warning disable SA1009 // Closing parenthesis should be spaced correctly
         LotService lotService) : ControllerBase
-#pragma warning restore SA1009 // Closing parenthesis should be spaced correctly
 {
     private readonly InventoryRecordService _inventoryRecordService = inventoryRecordService;
     private readonly ItemService _itemService = itemService;

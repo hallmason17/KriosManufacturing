@@ -18,6 +18,7 @@
         </li>
         }
         @else {
+        <li>{{this.authService.loggedInUser()}}</li>
         <li>
             <button class="" (click)="this.authService.logout()" (keydown)="this.authService.logout()">
                 Logout

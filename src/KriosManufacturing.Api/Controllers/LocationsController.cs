@@ -7,9 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
 [Route("/api/v1/[controller]")]
-#pragma warning disable SA1009 // Closing parenthesis should be spaced correctly
 public class LocationsController(LocationService locationService) : ControllerBase
-#pragma warning restore SA1009 // Closing parenthesis should be spaced correctly
 {
     private readonly LocationService _locationService = locationService;
     [HttpGet]

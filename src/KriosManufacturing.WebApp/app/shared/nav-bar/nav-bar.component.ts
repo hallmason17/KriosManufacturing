@@ -11,7 +11,6 @@ import { AuthService } from '../../core/services/auth.service';
 })
 export class NavBarComponent {
     authService: AuthService = inject(AuthService)
-    isLoggedIn = this.authService.isLoggedIn();
     loggedOutRoutes = [
         'Login',
         'Register'
