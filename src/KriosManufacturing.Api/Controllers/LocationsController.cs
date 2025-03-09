@@ -45,17 +45,12 @@ public class LocationsController(LocationService locationService) : ControllerBa
             return BadRequest();
         }
 
-        await _locationService.UpdateAsync(location, ctok);
-
-        return NoContent();
-        /*
         var newLocation = await _locationService.UpdateAsync(location, ctok);
         return newLocation switch
         {
             null => Problem(statusCode: StatusCodes.Status400BadRequest, detail: "Location not updated"),
-            _ => Ok(newLocation)
+            _ => NoContent()
         };
-        */
     }
 
     [HttpDelete("{locationId:long}")]

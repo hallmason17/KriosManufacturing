@@ -6,8 +6,12 @@ import { LocationsComponent } from './locations/locations.component';
 import { ItemsComponent } from './items/items.component';
 import { InventoryLevelsComponent } from './inventory-levels/inventory-levels.component';
 import { AuthComponent } from './auth/auth.component';
+import { ItemComponent } from './items/item/item.component';
+import { NewItemComponent } from './items/new-item/new-item.component';
 
 export const routes: Routes = [
+    { path: 'items/new', component: NewItemComponent },
+    { path: 'items/:itemId', component: ItemComponent },
     { path: 'items', component: ItemsComponent },
     { path: 'inventory-levels', component: InventoryLevelsComponent },
     { path: 'locations', component: LocationsComponent },

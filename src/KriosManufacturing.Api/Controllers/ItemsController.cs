@@ -1,11 +1,12 @@
 namespace KriosManufacturing.Api.Controllers;
 
-using Dtos.Items;
 using Core.Models;
 using Core.Services;
 
-using Microsoft.AspNetCore.Mvc;
+using Dtos.Items;
+
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 [Authorize]
 [ApiController]

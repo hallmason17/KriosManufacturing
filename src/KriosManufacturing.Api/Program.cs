@@ -7,8 +7,6 @@ using KriosManufacturing.Infrastructure.Data;
 using KriosManufacturing.Infrastructure.Repositories;
 using KriosManufacturing.ServiceDefaults;
 
-using Microsoft.AspNetCore.Authentication.BearerToken;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

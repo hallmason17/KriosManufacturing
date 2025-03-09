@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
 import { AuthService } from '../../core/services/auth.service';
 
@@ -11,6 +11,7 @@ import { AuthService } from '../../core/services/auth.service';
 })
 export class NavBarComponent {
     authService: AuthService = inject(AuthService)
+    router: Router = inject(Router)
     loggedOutRoutes = [
         'Login',
         'Register'
@@ -18,4 +19,17 @@ export class NavBarComponent {
     loggedInRoutes = [
         'Log Out'
     ]
+
+    logout() {
+        this.authService.logout();
+        this.router.navigate(['/login']);
+    }
+
+    get isLoggedIn(): boolean {
+        return this.authService.isLoggedIn();
+    }
+
+    get loggedInUser(): string | null {
+        return this.authService.loggedInUser();
+    }
 }

@@ -4,7 +4,7 @@
         <span>Krios Manufacturing</span>
     </a>
     <ul>
-        @if(!this.authService.isLoggedIn())
+        @if(!isLoggedIn)
         {
         <li>
             <a class="" [routerLink]="['/login']" routerLinkActive="router-link-active">
@@ -18,9 +18,9 @@
         </li>
         }
         @else {
-        <li>{{this.authService.loggedInUser()}}</li>
+        <li>{{loggedInUser}}</li>
         <li>
-            <button class="" (click)="this.authService.logout()" (keydown)="this.authService.logout()">
+            <button class="" (click)="this.logout()" (keydown)="this.authService.logout()">
                 Logout
             </button>
         </li>
