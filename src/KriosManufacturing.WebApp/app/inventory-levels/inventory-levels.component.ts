@@ -4,8 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-inventory-levels',
   imports: [],
   templateUrl: './inventory-levels.component.html',
-  styleUrl: './inventory-levels.component.scss'
+  styleUrl: './inventory-levels.component.scss',
 })
-export class InventoryLevelsComponent {
-
-}
+export class InventoryLevelsComponent {}

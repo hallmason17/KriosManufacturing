@@ -425,3 +425,7 @@ dotnet_diagnostic.SA1615.severity = none
 
 [**/Migrations/*]
 generated_code = true
+
+# Default severity for analyzer diagnostics with category 'StyleCop.CSharp.SpacingRules'
+dotnet_analyzer_diagnostic.category-StyleCop.CSharp.SpacingRules.severity = silent
+

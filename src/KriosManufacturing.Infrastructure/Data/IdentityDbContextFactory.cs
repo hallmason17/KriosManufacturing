@@ -7,7 +7,7 @@ public class IdentityDbContextFactory : IDesignTimeDbContextFactory<IdentityCont
 {
     public IdentityContext CreateDbContext(string[] args)
     {
-        DbContextOptionsBuilder<IdentityContext> optionsBuilder = new DbContextOptionsBuilder<IdentityContext>();
+        DbContextOptionsBuilder<IdentityContext> optionsBuilder = new();
         optionsBuilder.UseNpgsql(
             "Server=localhost;Port=5432;Username=postgres;Password=Vince123;Database=KriosManufacturing;Include Error Detail=true");
 

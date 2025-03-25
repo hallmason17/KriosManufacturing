@@ -1,6 +1,7 @@
 namespace KriosManufacturing.Core.Services;
 
 using Models;
+
 using Repositories;
 
 public class InventoryRecordService(IInventoryRecordRepository inventoryRecordRepository)
