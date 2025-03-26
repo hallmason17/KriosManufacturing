@@ -9,7 +9,6 @@
         <WarningsAsErrors>CA1062,Nullable</WarningsAsErrors>
         <LangVersion>latest</LangVersion>
         <AnalysisLevel>latest</AnalysisLevel>
-        <PublishAot>true</PublishAot>
     </PropertyGroup>
 
     <ItemGroup>
