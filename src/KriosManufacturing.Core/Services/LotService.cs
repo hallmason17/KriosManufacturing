@@ -4,16 +4,17 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-using Models;
-using Repositories;
-
 using Microsoft.Extensions.Logging;
+
+using Models;
+
+using Repositories;
 
 public class LotService(ILogger<LotService> logger, ILotRepository lotRepository)
 {
     public async Task<Lot?> CreateAsync(Lot lot, CancellationToken ctok)
     {
-        return await lotRepository.CreateAsync(lot, ctok);
+        return await lotRepository.CreateAsync(lot, ctok).ConfigureAwait(false);
     }
 
     /*
@@ -48,6 +49,6 @@ public async Task<Lot?> UpdateAsync(Lot lot, CancellationToken ctok)
 */
     public async Task<Lot?> GetByLotNumberAsync(string lotNumber, CancellationToken ctok)
     {
-        return await lotRepository.GetByLotNumberAsync(lotNumber, ctok);
+        return await lotRepository.GetByLotNumberAsync(lotNumber, ctok).ConfigureAwait(false);
     }
 }

@@ -6,37 +6,37 @@ using Microsoft.EntityFrameworkCore;
 
 public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
-    public DbSet<Item> Items
+    public DbSet<Item>? Items
     {
         get;
         set;
     }
 
-    public DbSet<Location> Locations
+    public DbSet<Location>? Locations
     {
         get;
         set;
     }
 
-    public DbSet<InventoryRecord> InventoryRecords
+    public DbSet<InventoryRecord>? InventoryRecords
     {
         get;
         set;
     }
 
-    public DbSet<Lot> Lots
+    public DbSet<Lot>? Lots
     {
         get;
         set;
     }
 
-    public DbSet<Order> Orders
+    public DbSet<Order>? Orders
     {
         get;
         set;
     }
 
-    public DbSet<OrderDetail> OrderDetails
+    public DbSet<OrderDetail>? OrderDetails
     {
         get;
         set;
@@ -44,6 +44,8 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        if (modelBuilder is null) return;
+
         modelBuilder.Entity<Lot>(lot =>
         {
             lot.HasKey(l => l.Id);

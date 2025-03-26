@@ -1,15 +1,15 @@
 ﻿namespace KriosManufacturing.Infrastructure.Repositories;
 
+using System.Threading;
+using System.Threading.Tasks;
+
+using Data;
+
 using KriosManufacturing.Core.Repositories;
 
 using Microsoft.EntityFrameworkCore;
-using System.Threading;
-using System.Threading.Tasks;
-using Data;
 
-#pragma warning disable SA1009 // Closing parenthesis should be spaced correctly
 public class Repository<T>(AppDbContext dbContext) : IRepository<T>
-#pragma warning restore SA1009 // Closing parenthesis should be spaced correctly
 where T : class
 {
     private readonly DbSet<T> _dbSet = dbContext.Set<T>();
@@ -21,9 +21,9 @@ where T : class
         return result > 0 ? item : default;
     }
 
-    public virtual async Task<bool> DeleteByIdAsync(long itemId, CancellationToken ctok)
+    public virtual async Task<bool> DeleteByIdAsync(long id, CancellationToken ctok)
     {
-        var item = await dbContext.FindAsync<T>(itemId);
+        var item = await dbContext.FindAsync<T>(id).ConfigureAwait(false);
         if (item == null)
         {
             return false;
@@ -35,7 +35,7 @@ where T : class
         }
 
         _dbSet.Remove(item);
-        var result = await dbContext.SaveChangesAsync(ctok);
+        var result = await dbContext.SaveChangesAsync(ctok).ConfigureAwait(false);
         return result > 0;
     }
 
@@ -44,9 +44,9 @@ where T : class
         return await _dbSet.ToListAsync(ctok).ConfigureAwait(false);
     }
 
-    public virtual async Task<T?> GetById(long itemId, CancellationToken ctok)
+    public virtual async Task<T?> GetById(long id, CancellationToken ctok)
     {
-        return await _dbSet.FindAsync(itemId, ctok).ConfigureAwait(false);
+        return await _dbSet.FindAsync([id], cancellationToken: ctok).ConfigureAwait(false);
     }
 
     public virtual async Task<T?> UpdateAsync(T item, CancellationToken ctok)

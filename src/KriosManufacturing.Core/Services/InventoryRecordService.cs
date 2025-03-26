@@ -8,22 +8,22 @@ public class InventoryRecordService(IInventoryRecordRepository inventoryRecordRe
 {
     public async Task<IEnumerable<InventoryRecord>> GetAllAsync(CancellationToken ctok)
     {
-        return await inventoryRecordRepository.GetAll(ctok);
+        return await inventoryRecordRepository.GetAll(ctok).ConfigureAwait(false);
     }
 
     public async Task<InventoryRecord?> GetByIdAsync(long id, CancellationToken ctok)
     {
-        return await inventoryRecordRepository.GetById(id, ctok);
+        return await inventoryRecordRepository.GetById(id, ctok).ConfigureAwait(false);
     }
 
     public async Task<InventoryRecord?> CreateAsync(InventoryRecord inventoryRecord, CancellationToken ctok)
     {
-        return await inventoryRecordRepository.CreateAsync(inventoryRecord, ctok);
+        return await inventoryRecordRepository.CreateAsync(inventoryRecord, ctok).ConfigureAwait(false);
     }
 
     public async Task<bool> DeleteByIdAsync(long id, CancellationToken ctok)
     {
-        return await inventoryRecordRepository.DeleteByIdAsync(id, ctok);
+        return await inventoryRecordRepository.DeleteByIdAsync(id, ctok).ConfigureAwait(false);
     }
 
     public async Task<InventoryRecord?> UpdateAsync(InventoryRecord inventoryRecord, CancellationToken ctok)
@@ -41,7 +41,7 @@ public class InventoryRecordService(IInventoryRecordRepository inventoryRecordRe
         int result = await _dbContext.SaveChangesAsync(ctok);
         return result > 0 ? inventoryRecord : default;
         */
-        return await inventoryRecordRepository.UpdateAsync(inventoryRecord, ctok);
+        return await inventoryRecordRepository.UpdateAsync(inventoryRecord, ctok).ConfigureAwait(false);
     }
 
     public async Task<IEnumerable<InventoryRecord>> GetByItemAsync(long itemId, CancellationToken ctok)

@@ -1,7 +1,7 @@
 using KriosManufacturing.ServiceDefaults;
+using KriosManufacturing.WebApplication.Components;
 
 using MudBlazor.Services;
-using KriosManufacturing.WebApplication.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 

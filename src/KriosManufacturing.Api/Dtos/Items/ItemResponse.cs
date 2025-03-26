@@ -2,7 +2,7 @@ namespace KriosManufacturing.Api.Dtos.Items;
 
 using Core.Models;
 
-public record ItemResponse(long Id, string Sku, string Name, string? Description)
+internal sealed record ItemResponse(long Id, string Sku, string Name, string? Description)
 {
     public static ItemResponse FromItem(Item item)
     {

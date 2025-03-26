@@ -1,30 +1,31 @@
 namespace KriosManufacturing.Core.Services;
 
-using Models;
-using Repositories;
-
 using Microsoft.Extensions.Logging;
+
+using Models;
+
+using Repositories;
 
 public class LocationService(ILogger<LocationService> logger, ILocationRepository locationRepository)
 {
     public async Task<IEnumerable<Location>> GetAllAsync(CancellationToken ctok)
     {
-        return await locationRepository.GetAll(ctok);
+        return await locationRepository.GetAll(ctok).ConfigureAwait(false);
     }
 
     public async Task<Location?> GetByIdAsync(long id, CancellationToken ctok)
     {
-        return await locationRepository.GetById(id, ctok);
+        return await locationRepository.GetById(id, ctok).ConfigureAwait(false);
     }
 
     public async Task<Location?> CreateAsync(Location location, CancellationToken ctok)
     {
-        return await locationRepository.CreateAsync(location, ctok);
+        return await locationRepository.CreateAsync(location, ctok).ConfigureAwait(false);
     }
 
     public async Task<bool> DeleteByIdAsync(long id, CancellationToken ctok)
     {
-        return await locationRepository.DeleteByIdAsync(id, ctok);
+        return await locationRepository.DeleteByIdAsync(id, ctok).ConfigureAwait(false);
     }
 
     public async Task<Location?> UpdateAsync(Location location, CancellationToken ctok)
@@ -42,6 +43,6 @@ public class LocationService(ILogger<LocationService> logger, ILocationRepositor
         int result = await _dbContext.SaveChangesAsync(ctok);
         return result > 0 ? location : default;
         */
-        return await locationRepository.UpdateAsync(location, ctok);
+        return await locationRepository.UpdateAsync(location, ctok).ConfigureAwait(false);
     }
 }

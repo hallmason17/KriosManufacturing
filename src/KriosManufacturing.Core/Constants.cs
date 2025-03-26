@@ -7,4 +7,3 @@ public static partial class Constants
     public const string DefaultItemSku = "Open";
     public const string DefaultItemName = "Default";
 }
-

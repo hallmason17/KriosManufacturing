@@ -24,7 +24,7 @@ public class InventoryRecordsController(
     [HttpGet]
     public async Task<IActionResult> GetInventoryRecords(CancellationToken ctok)
     {
-        var inventoryRecords = await _inventoryRecordService.GetAllAsync(ctok);
+        var inventoryRecords = await _inventoryRecordService.GetAllAsync(ctok).ConfigureAwait(false);
         return Ok(inventoryRecords);
     }
 
@@ -33,7 +33,7 @@ public class InventoryRecordsController(
             long inventoryRecordId,
             CancellationToken ctok)
     {
-        var inventoryRecord = await _inventoryRecordService.GetByIdAsync(inventoryRecordId, ctok);
+        var inventoryRecord = await _inventoryRecordService.GetByIdAsync(inventoryRecordId, ctok).ConfigureAwait(false);
         return inventoryRecord switch
         {
             null => NotFound(),
@@ -46,27 +46,33 @@ public class InventoryRecordsController(
             CreateInventoryRecordRequest inventoryRecordRequest,
             CancellationToken ctok)
     {
+        if (inventoryRecordRequest is null)
+        {
+            return BadRequest();
+        }
+
         var sw = new Stopwatch();
         sw.Start();
+
         if (inventoryRecordRequest.Quantity < 1)
         {
             return BadRequest("Quantity must be greater than 0.");
         }
 
-        var item = await _itemService.GetBySkuAsync(inventoryRecordRequest.Sku, ctok);
+        var item = await _itemService.GetBySkuAsync(inventoryRecordRequest.Sku, ctok).ConfigureAwait(false);
         if (item is null)
         {
             return NotFound("Item not found.");
         }
 
         // TODO: Get default receive location
-        var location = await _locationService.GetByIdAsync(5, ctok);
+        var location = await _locationService.GetByIdAsync(5, ctok).ConfigureAwait(false);
         if (location is null)
         {
             return NotFound("Location not found.");
         }
 
-        var lot = await _lotService.GetByLotNumberAsync(inventoryRecordRequest.LotNumber, ctok);
+        var lot = await _lotService.GetByLotNumberAsync(inventoryRecordRequest.LotNumber, ctok).ConfigureAwait(false);
         lot ??= new Lot()
         {
             ItemId = item.Id,
@@ -83,7 +89,7 @@ public class InventoryRecordsController(
             Quantity = inventoryRecordRequest.Quantity,
         };
 
-        var newRecord = await _inventoryRecordService.CreateAsync(inventoryRecord, ctok);
+        var newRecord = await _inventoryRecordService.CreateAsync(inventoryRecord, ctok).ConfigureAwait(false);
         logger.LogInformation("CreateInventoryRecords took {ElapsedMilliseconds}ms", sw.ElapsedMilliseconds);
         return newRecord == null ?
             Problem(
@@ -101,12 +107,17 @@ public class InventoryRecordsController(
             InventoryRecord inventoryRecord,
             CancellationToken ctok)
     {
+        if (inventoryRecord is null)
+        {
+            return BadRequest();
+        }
+
         if (inventoryRecordId != inventoryRecord.Id)
         {
             return BadRequest();
         }
 
-        await _inventoryRecordService.UpdateAsync(inventoryRecord, ctok);
+        await _inventoryRecordService.UpdateAsync(inventoryRecord, ctok).ConfigureAwait(false);
 
         return NoContent();
         /*
@@ -122,7 +133,7 @@ public class InventoryRecordsController(
     [HttpDelete("{inventoryRecordId:long}")]
     public async Task<IActionResult> DeleteItem(long inventoryRecordId, CancellationToken ctok)
     {
-        var isDeleted = await _inventoryRecordService.DeleteByIdAsync(inventoryRecordId, ctok);
+        var isDeleted = await _inventoryRecordService.DeleteByIdAsync(inventoryRecordId, ctok).ConfigureAwait(false);
         return !isDeleted ? NotFound() : NoContent();
     }
 }
@@ -136,7 +147,7 @@ public record CreateInventoryRecordRequest(
 {
 }
 
-public record InventoryRecordResponse(
+internal sealed record InventoryRecordResponse(
         long Id,
         long ItemId,
         long LocationId,

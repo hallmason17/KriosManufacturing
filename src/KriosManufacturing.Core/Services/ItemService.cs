@@ -1,36 +1,38 @@
 namespace KriosManufacturing.Core.Services;
 
-using Repositories;
-using Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+
+using Models;
+
+using Repositories;
 
 public class ItemService(ILogger<ItemService> logger, IItemRepository itemRepository)
 {
     public async Task<IEnumerable<Item>> GetAllAsync(CancellationToken ctok)
     {
-        return await itemRepository.GetAll(ctok);
+        return await itemRepository.GetAll(ctok).ConfigureAwait(false);
     }
 
     public async Task<Item?> GetByIdAsync(long id, CancellationToken ctok)
     {
-        return await itemRepository.GetById(id, ctok);
+        return await itemRepository.GetById(id, ctok).ConfigureAwait(false);
     }
 
     public async Task<Item?> GetBySkuAsync(string sku, CancellationToken ctok)
     {
         logger.LogInformation("Hello world");
-        return await itemRepository.GetBySkuAsync(sku, ctok);
+        return await itemRepository.GetBySkuAsync(sku, ctok).ConfigureAwait(false);
     }
 
     public async Task<Item?> CreateAsync(Item item, CancellationToken ctok)
     {
-        return await itemRepository.CreateAsync(item, ctok);
+        return await itemRepository.CreateAsync(item, ctok).ConfigureAwait(false);
     }
 
     public async Task<bool> DeleteByIdAsync(long id, CancellationToken ctok)
     {
-        return await itemRepository.DeleteByIdAsync(id, ctok);
+        return await itemRepository.DeleteByIdAsync(id, ctok).ConfigureAwait(false);
     }
 
     public async Task<Item?> UpdateAsync(Item item, CancellationToken ctok)
@@ -48,6 +50,6 @@ public class ItemService(ILogger<ItemService> logger, IItemRepository itemReposi
         int result = await _dbContext.SaveChangesAsync(ctok);
         return result > 0 ? item : default;
         */
-        return await itemRepository.UpdateAsync(item, ctok);
+        return await itemRepository.UpdateAsync(item, ctok).ConfigureAwait(false);
     }
 }

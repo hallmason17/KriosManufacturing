@@ -7,8 +7,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E4C3BB6F-EBB
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KriosManufacturing.Api", "src\KriosManufacturing.Api\KriosManufacturing.Api.csproj", "{A7218BA9-2745-402D-A10C-16E3FEB69399}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KriosManufacturing.App", "src\KriosManufacturing.App\KriosManufacturing.App.csproj", "{5DC45D12-F234-46E6-B44E-189ECA7C23AE}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KriosManufacturing.AppHost", "src\KriosManufacturing.AppHost\KriosManufacturing.AppHost.csproj", "{3CFF04D0-A9D3-4393-88B9-B3D5E65BA836}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KriosManufacturing.Core", "src\KriosManufacturing.Core\KriosManufacturing.Core.csproj", "{A7542543-A5D1-4C30-B9E0-B995ABFECF5C}"
@@ -19,25 +17,18 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KriosManufacturing.WebAppli
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KriosManufacturing.Infrastructure", "src\KriosManufacturing.Infrastructure\KriosManufacturing.Infrastructure.csproj", "{C4831CB7-F3B5-4FB9-B3D7-F2F238DAEEE6}"
 EndProject
-Project("{54a90642-561a-4bb1-a94e-469adee60c69}") = "KriosManufacturing.WebApp", "src\KriosManufacturing.WebApp\KriosManufacturing.WebApp.esproj", "{3E0DF2C3-549A-4D79-A6EF-86C71AB95364}"
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "KriosManufacturing.WebApp", "src\KriosManufacturing.WebApp\KriosManufacturing.WebApp.esproj", "{3E0DF2C3-549A-4D79-A6EF-86C71AB95364}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{A7218BA9-2745-402D-A10C-16E3FEB69399}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A7218BA9-2745-402D-A10C-16E3FEB69399}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7218BA9-2745-402D-A10C-16E3FEB69399}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A7218BA9-2745-402D-A10C-16E3FEB69399}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5DC45D12-F234-46E6-B44E-189ECA7C23AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5DC45D12-F234-46E6-B44E-189ECA7C23AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5DC45D12-F234-46E6-B44E-189ECA7C23AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5DC45D12-F234-46E6-B44E-189ECA7C23AE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3CFF04D0-A9D3-4393-88B9-B3D5E65BA836}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3CFF04D0-A9D3-4393-88B9-B3D5E65BA836}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3CFF04D0-A9D3-4393-88B9-B3D5E65BA836}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -63,9 +54,11 @@ Global
 		{3E0DF2C3-549A-4D79-A6EF-86C71AB95364}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E0DF2C3-549A-4D79-A6EF-86C71AB95364}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{A7218BA9-2745-402D-A10C-16E3FEB69399} = {E4C3BB6F-EBB8-4631-A809-FF67ED4228F8}
-		{5DC45D12-F234-46E6-B44E-189ECA7C23AE} = {E4C3BB6F-EBB8-4631-A809-FF67ED4228F8}
 		{3CFF04D0-A9D3-4393-88B9-B3D5E65BA836} = {E4C3BB6F-EBB8-4631-A809-FF67ED4228F8}
 		{A7542543-A5D1-4C30-B9E0-B995ABFECF5C} = {E4C3BB6F-EBB8-4631-A809-FF67ED4228F8}
 		{64DDDFD6-0E7E-4FB3-9389-03C451B62192} = {E4C3BB6F-EBB8-4631-A809-FF67ED4228F8}

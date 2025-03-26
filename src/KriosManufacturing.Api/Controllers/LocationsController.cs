@@ -13,14 +13,14 @@ public class LocationsController(LocationService locationService) : ControllerBa
     [HttpGet]
     public async Task<IActionResult> GetLocations(CancellationToken ctok)
     {
-        var locations = await _locationService.GetAllAsync(ctok);
+        var locations = await _locationService.GetAllAsync(ctok).ConfigureAwait(false);
         return Ok(locations);
     }
 
     [HttpGet("{locationId}")]
     public async Task<IActionResult> GetLocation(long locationId, CancellationToken ctok)
     {
-        var location = await _locationService.GetByIdAsync(locationId, ctok);
+        var location = await _locationService.GetByIdAsync(locationId, ctok).ConfigureAwait(false);
         return location switch
         {
             null => NotFound(),
@@ -31,7 +31,8 @@ public class LocationsController(LocationService locationService) : ControllerBa
     [HttpPost]
     public async Task<IActionResult> CreateLocation(CreateLocationRequest locationRequest, CancellationToken ctok)
     {
-        var newLocation = await _locationService.CreateAsync(locationRequest.ToLocation(), ctok);
+        if (locationRequest == null) return BadRequest();
+        var newLocation = await _locationService.CreateAsync(locationRequest.ToLocation(), ctok).ConfigureAwait(false);
         return newLocation == null ?
             Problem(statusCode: StatusCodes.Status400BadRequest, detail: $"Location not created")
             : CreatedAtAction(nameof(GetLocation), new { LocationId = newLocation.Id }, LocationResponse.FromLocation(newLocation));
@@ -40,12 +41,12 @@ public class LocationsController(LocationService locationService) : ControllerBa
     [HttpPut("{locationId}")]
     public async Task<IActionResult> UpdateLocation(long locationId, Location location, CancellationToken ctok)
     {
-        if (locationId != location.Id)
+        if (location is null || locationId != location.Id)
         {
             return BadRequest();
         }
 
-        var newLocation = await _locationService.UpdateAsync(location, ctok);
+        var newLocation = await _locationService.UpdateAsync(location, ctok).ConfigureAwait(false);
         return newLocation switch
         {
             null => Problem(statusCode: StatusCodes.Status400BadRequest, detail: "Location not updated"),
@@ -56,7 +57,7 @@ public class LocationsController(LocationService locationService) : ControllerBa
     [HttpDelete("{locationId:long}")]
     public async Task<IActionResult> DeleteLocation(long locationId, CancellationToken ctok)
     {
-        var isDeleted = await _locationService.DeleteByIdAsync(locationId, ctok);
+        var isDeleted = await _locationService.DeleteByIdAsync(locationId, ctok).ConfigureAwait(false);
         return !isDeleted ? NotFound() : NoContent();
     }
 }
@@ -74,7 +75,7 @@ public record CreateLocationRequest(long Id, string Unit, string Cell)
     }
 }
 
-public record LocationResponse(long Id, string Unit, string Cell)
+internal sealed record LocationResponse(long Id, string Unit, string Cell)
 {
     public static LocationResponse FromLocation(Location location)
     {

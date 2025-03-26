@@ -1,20 +1,24 @@
 ﻿namespace KriosManufacturing.Infrastructure.Repositories;
 
+using System.Threading;
+using System.Threading.Tasks;
+
 using Core.Models;
+
+using Data;
+
 using KriosManufacturing.Core.Repositories;
 
 using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
-using System.Threading;
-using Data;
 
-#pragma warning disable SA1009 // Closing parenthesis should be spaced correctly
-public class ItemRepository(AppDbContext _dbContext) : Repository<Item>(_dbContext), IItemRepository
-#pragma warning restore SA1009 // Closing parenthesis should be spaced correctly
+public class ItemRepository(AppDbContext dbContext) : Repository<Item>(dbContext), IItemRepository
 {
-    protected AppDbContext dbContext = _dbContext;
+    protected AppDbContext dbContext { get; set; } = dbContext;
+
     public Task<Item?> GetBySkuAsync(string sku, CancellationToken ctok)
     {
-        return dbContext.Items.Where(it => it.Sku == sku).SingleOrDefaultAsync(ctok);
+        return dbContext.Items is null
+            ? Task.FromResult<Item?>(null)
+            : dbContext.Items.Where(it => it.Sku == sku).SingleOrDefaultAsync(ctok);
     }
 }

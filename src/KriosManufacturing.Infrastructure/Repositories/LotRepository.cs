@@ -1,19 +1,21 @@
 namespace KriosManufacturing.Infrastructure.Repositories;
 
 using Core.Models;
-using KriosManufacturing.Core.Repositories;
 
 using Data;
 
+using KriosManufacturing.Core.Repositories;
+
 using Microsoft.EntityFrameworkCore;
 
-#pragma warning disable SA1009 // Closing parenthesis should be spaced correctly
-public class LotRepository(AppDbContext _dbContext) : Repository<Lot>(_dbContext), ILotRepository
-#pragma warning restore SA1009 // Closing parenthesis should be spaced correctly
+public class LotRepository(AppDbContext dbContext) : Repository<Lot>(dbContext), ILotRepository
 {
-    protected AppDbContext dbContext = _dbContext;
+    protected AppDbContext dbContext { get; set; } = dbContext;
+
     public async Task<Lot?> GetByLotNumberAsync(string lotNumber, CancellationToken ctok)
     {
-        return await dbContext.Lots.Where(l => l.LotNumber == lotNumber).SingleOrDefaultAsync(ctok);
+        return dbContext.Lots is null
+            ? null
+            : await dbContext.Lots.Where(l => l.LotNumber == lotNumber).SingleOrDefaultAsync(ctok).ConfigureAwait(false);
     }
 }
