@@ -16,7 +16,7 @@ export class AuthService {
   loggedInUser = () => localStorage.getItem('user');
 
   login(email: string, password: string) {
-    const authRequest = this.httpClient.post<AuthReponse>(
+    const authRequest = this.httpClient.post<AuthResponse>(
       'http://localhost:5069/login',
       { email: email, password: password },
     );
@@ -41,7 +41,7 @@ export class AuthService {
   }
 }
 
-interface AuthReponse {
+interface AuthResponse {
   tokenType: string;
   accessToken: string;
   expiresIn: number;
